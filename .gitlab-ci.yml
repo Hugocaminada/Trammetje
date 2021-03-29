@@ -1,0 +1,14 @@
+variables:
+  NODE_IMAGE: node:14-alpine
+  NPM_CONFIG_CACHE: .npm
+
+stages:
+  - test
+
+node-test:
+  image: $NODE_IMAGE
+  stage: test
+  script:
+    - npm ci
+    - npm run lint
+    - npm test

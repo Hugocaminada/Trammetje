@@ -10,5 +10,11 @@ node-test:
   stage: test
   script:
     - npm ci
-    - npm run lint
     - npm test
+
+node-lint:
+  image: $NODE_IMAGE
+  stage: test
+  script:
+    - npm ci
+    - npm run lint

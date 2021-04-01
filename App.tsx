@@ -1,6 +1,12 @@
 import React from 'react'
-import HomeScreen from './src/screens/Homescreen'
+import {Provider} from 'react-redux'
+import HomeScreen from './src/components/Homescreen'
+import store from './src/redux/store'
 
-const App = () => <HomeScreen />
+const App = () => (
+  <Provider store={store}>
+    <HomeScreen />
+  </Provider>
+)
 
 export default App

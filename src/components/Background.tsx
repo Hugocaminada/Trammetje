@@ -10,7 +10,7 @@ const MainContainer = styled.View`
 
 const BottomHalf = styled.View`
   flex: 1;
-  background-color: #e0e0e0;
+  background-color: rgba(187, 107, 217, 0.6);
 `
 const Content = styled.View`
   position: absolute;

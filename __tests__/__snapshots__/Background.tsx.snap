@@ -31,7 +31,7 @@ exports[`if it renders correctly 1`] = `
     style={
       Array [
         Object {
-          "backgroundColor": "#e0e0e0",
+          "backgroundColor": "rgba(187, 107, 217, 0.6)",
           "flexBasis": 0,
           "flexGrow": 1,
           "flexShrink": 1,

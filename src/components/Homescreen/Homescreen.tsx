@@ -24,7 +24,7 @@ const Homescreen: React.FC<Props> = ({}) => {
 
   return (
     <GradientBackground>
-      <ScrollView>
+      <ScrollView bounces={false}>
         <Spacer />
         <MainContainer />
       </ScrollView>

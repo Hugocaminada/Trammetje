@@ -1,22 +1,34 @@
 import React from 'react'
+import {ScrollView, Dimensions} from 'react-native'
 import styled from 'styled-components/native'
-import Background from '../Background'
+import GradientBackground from '../GradientBackground'
 
 interface Props {}
 
 const Homescreen: React.FC<Props> = ({}) => {
   // const isDarkMode = useColorScheme() === 'dark'
 
-  const TestText = styled.Text`
-    position: absolute;
-    top: 40%;
-    align-self: center;
+  const windowHeight = Dimensions.get('window').height
+
+  const Spacer = styled.View`
+    height: ${windowHeight / 2}px;
+  `
+
+  const MainContainer = styled.View`
+    flex: 1;
+    align-self: stretch;
+    width: 500px;
+    min-height: ${windowHeight}px;
+    background-color: lightgrey;
   `
 
   return (
-    <Background>
-      <TestText>Test</TestText>
-    </Background>
+    <GradientBackground>
+      <ScrollView>
+        <Spacer />
+        <MainContainer />
+      </ScrollView>
+    </GradientBackground>
   )
 }
 

@@ -1,6 +1,8 @@
 import React from 'react'
-import {ScrollView, Dimensions} from 'react-native'
+import {ScrollView, Dimensions, Text} from 'react-native'
 import styled from 'styled-components/native'
+import Button from '../Button'
+import Card from '../Card'
 import GradientBackground from '../GradientBackground'
 
 interface Props {}
@@ -16,17 +18,29 @@ const Homescreen: React.FC<Props> = ({}) => {
 
   const MainContainer = styled.View`
     flex: 1;
-    align-self: stretch;
-    width: 500px;
     min-height: ${windowHeight}px;
     background-color: lightgrey;
+    align-items: center;
+  `
+
+  const ButtonContainer = styled.View`
+    position: absolute;
+    align-self: center;
+    top: -25px;
   `
 
   return (
     <GradientBackground>
-      <ScrollView bounces={false}>
+      <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <Spacer />
-        <MainContainer />
+        <MainContainer>
+          <ButtonContainer>
+            <Button label="Stap in" />
+          </ButtonContainer>
+          <Card>
+            <Text>Teams</Text>
+          </Card>
+        </MainContainer>
       </ScrollView>
     </GradientBackground>
   )

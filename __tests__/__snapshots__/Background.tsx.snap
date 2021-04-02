@@ -17,8 +17,8 @@ exports[`if it renders correctly 1`] = `
     colors={
       Array [
         "#56CCF2",
-        "rgba(187, 107, 217, 0.7)",
-        "rgba(187, 107, 217, 0.6)",
+        "rgba(132, 176, 235, 0.8)",
+        "rgba(132, 176, 235, 0.8)",
       ]
     }
     style={

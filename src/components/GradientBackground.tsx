@@ -24,16 +24,14 @@ interface Props {
   children: any
 }
 
-const Background: React.FC<Props> = ({children}) => {
-  // const isDarkMode = useColorScheme() === 'dark'
-
+const GradientBackground: React.FC<Props> = ({children}) => {
   return (
     <MainContainer>
       <LinearGradient
         colors={[
           '#56CCF2',
-          'rgba(187, 107, 217, 0.7)',
-          'rgba(187, 107, 217, 0.6)',
+          'rgba(132, 176, 235, 0.8)',
+          'rgba(132, 176, 235, 0.8)',
         ]}
         style={styles.linearGradient}
       />
@@ -49,4 +47,4 @@ var styles = StyleSheet.create({
   },
 })
 
-export default Background
+export default GradientBackground

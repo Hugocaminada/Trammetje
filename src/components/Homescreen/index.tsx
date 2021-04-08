@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, Dimensions, Text, Button} from 'react-native'
+import {ScrollView, Dimensions, Text} from 'react-native'
 import styled from 'styled-components/native'
 import Card from '../Card'
 import GradientBackground from '../GradientBackground'

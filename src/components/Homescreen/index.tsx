@@ -39,7 +39,13 @@ const Homescreen: React.FC<Props> = ({}) => {
         <Spacer />
         <MainContainer>
           <ButtonContainer>
-            <ModularButton label="Stap in" backgroundColor="#bb6bd9" />
+            <ModularButton
+              label="Stap in"
+              backgroundColor="#bb6bd9"
+              onPress={() => {
+                console.log('pressed')
+              }}
+            />
           </ButtonContainer>
           <Card>
             <Text>Teams</Text>

@@ -4,6 +4,7 @@ import styled from 'styled-components/native'
 interface Props {
   label: string
   backgroundColor: string
+  onPress: () => void
   width?: number
   height?: number
 }
@@ -11,6 +12,7 @@ interface Props {
 const ModularButton: React.FC<Props> = ({
   label,
   backgroundColor,
+  onPress,
   width = 247,
   height = '50',
 }) => {
@@ -35,7 +37,7 @@ const ModularButton: React.FC<Props> = ({
   `
 
   return (
-    <ButtonContainer>
+    <ButtonContainer onPress={onPress}>
       <ButtonText>{label}</ButtonText>
     </ButtonContainer>
   )

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import {colors} from '../constants'
-import {WithChildren} from '../types'
+import type {WithChildren} from '../types'
 
 type Props = WithChildren<{}>
 

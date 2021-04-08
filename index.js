@@ -17,7 +17,7 @@ Navigation.events().registerAppLaunchedListener(() => {
                 children: [
                     {
                         component: {
-                            name: 'Homescreen',
+                            name: 'com.Trammetje.HomeScreen',
                         },
                     },
                 ],

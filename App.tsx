@@ -1,7 +1,7 @@
 import React from 'react'
 import {Provider} from 'react-redux'
 import HomeScreen from './src/components/Homescreen'
-import store from './src/redux/store'
+import store from './src/app/store'
 
 const App = () => (
   <Provider store={store}>

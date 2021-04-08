@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native'
 import styled from 'styled-components/native'
 import LinearGradient from 'react-native-linear-gradient'
 import {colors} from '../constants'
-import {WithChildren} from '../types'
+import type {WithChildren} from '../types'
 
 const MainContainer = styled.View`
   flex: 1;

@@ -3,13 +3,21 @@ import styled from 'styled-components/native'
 
 interface Props {
   label: string
+  backgroundColor: string
+  width?: number
+  height?: number
 }
 
-const ModularButton: React.FC<Props> = ({label}) => {
+const ModularButton: React.FC<Props> = ({
+  label,
+  backgroundColor,
+  width = 247,
+  height = '50',
+}) => {
   const ButtonContainer = styled.TouchableOpacity`
-    width: 247px;
-    height: 50px;
-    background-color: #bb6bd9;
+    width: ${width}px;
+    height: ${height}px;
+    background-color: ${backgroundColor};
     align-self: center;
     border-radius: 100px;
     justify-content: center;

@@ -49,7 +49,7 @@ const Homescreen: React.FC<Props> = ({}) => {
         <Spacer />
         <MainContainer>
           <ButtonContainer>
-            <ModularButton label="Stap in" />
+            <ModularButton label="Stap in" backgroundColor="#bb6bd9" />
           </ButtonContainer>
           <Card>
             <Text>Teams</Text>

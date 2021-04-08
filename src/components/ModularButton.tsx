@@ -5,7 +5,7 @@ interface Props {
   label: string
 }
 
-const Button: React.FC<Props> = ({label}) => {
+const ModularButton: React.FC<Props> = ({label}) => {
   const ButtonContainer = styled.TouchableOpacity`
     width: 247px;
     height: 50px;
@@ -33,4 +33,4 @@ const Button: React.FC<Props> = ({label}) => {
   )
 }
 
-export default Button
+export default ModularButton

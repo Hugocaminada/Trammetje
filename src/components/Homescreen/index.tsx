@@ -30,21 +30,11 @@ const ButtonContainer = styled.View`
   z-index: 2;
 `
 
-const TestContainer = styled.View`
-  position: absolute;
-  align-self: center;
-  padding-top: 20px;
-  z-index: 1;
-`
-
 const Homescreen: React.FC<Props> = ({}) => {
   // const isDarkMode = useColorScheme() === 'dark'
 
   return (
     <GradientBackground>
-      <TestContainer>
-        <Button title="test" onPress={() => console.log('test')} />
-      </TestContainer>
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <Spacer />
         <MainContainer>

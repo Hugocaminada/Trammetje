@@ -1,7 +1,7 @@
 import React from 'react'
 import {ScrollView, Dimensions, Text} from 'react-native'
 import styled from 'styled-components/native'
-import {colors} from '../../contstants'
+import {colors} from '../../constants'
 import Card from '../Card'
 import GradientBackground from '../GradientBackground'
 import ModularButton from '../ModularButton'

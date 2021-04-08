@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import styled from 'styled-components/native'
 import LinearGradient from 'react-native-linear-gradient'
-import {colors} from '../contstants'
+import {colors} from '../constants'
 
 const MainContainer = styled.View`
   flex: 1;

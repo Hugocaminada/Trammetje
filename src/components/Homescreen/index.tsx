@@ -15,7 +15,7 @@ const Spacer = styled.View`
 const MainContainer = styled.View`
   flex: 1;
   min-height: ${windowHeight}px;
-  background-color: ${colors.grey};
+  background-color: ${colors.gray};
   align-items: center;
   z-index: 2;
 `

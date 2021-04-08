@@ -21,6 +21,7 @@ const Content = styled.View`
 `
 
 interface Props {
+  // Not sure on the type here. Should accept any react components.
   children: any
 }
 

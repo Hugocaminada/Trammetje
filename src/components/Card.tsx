@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/native'
 
 interface Props {
+  // Not sure on the type here. Should accept any react components.
   children: any
 }
 

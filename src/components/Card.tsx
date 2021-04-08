@@ -1,12 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/native'
+import {colors} from '../constants'
 import {WithChildren} from '../types'
 
 type Props = WithChildren<{}>
 
 const Card = ({children}: Props) => {
   const MainContainer = styled.View`
-    background-color: white;
+    background-color: ${colors.white};
     border-radius: 15px;
     margin-vertical: 20%;
     padding: 5%;

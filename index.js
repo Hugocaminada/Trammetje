@@ -1,9 +1,27 @@
-/**
- * @format
- */
-
-import {AppRegistry} from 'react-native'
+import { Navigation } from 'react-native-navigation'
 import App from './App'
-import {name as appName} from './app.json'
+import Homescreen from './src/components/Homescreen'
 
-AppRegistry.registerComponent(appName, () => App)
+Navigation.registerComponent('com.Trammetje.HomeScreen', () => App)
+Navigation.registerComponent('Homescreen', () => Homescreen)
+Navigation.setDefaultOptions({
+    topBar: {
+        visible: false,
+        drawBehind: true,
+    },
+})
+Navigation.events().registerAppLaunchedListener(() => {
+    Navigation.setRoot({
+        root: {
+            stack: {
+                children: [
+                    {
+                        component: {
+                            name: 'Homescreen',
+                        },
+                    },
+                ],
+            },
+        },
+    })
+})

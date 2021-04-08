@@ -27,9 +27,9 @@ const ButtonContainer = styled.View`
   z-index: 2;
 `
 
-interface Props {}
+type Props = {}
 
-const Homescreen: React.FC<Props> = ({}) => {
+const Homescreen = ({}: Props) => {
   // const isDarkMode = useColorScheme() === 'dark'
 
   return (

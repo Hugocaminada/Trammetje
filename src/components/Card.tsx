@@ -1,12 +1,10 @@
 import React from 'react'
 import styled from 'styled-components/native'
+import {WithChildren} from '../types'
 
-interface Props {
-  // Not sure on the type here. Should accept any react components.
-  children: any
-}
+type Props = WithChildren<{}>
 
-const Card: React.FC<Props> = ({children}) => {
+const Card = ({children}: Props) => {
   const MainContainer = styled.View`
     background-color: white;
     border-radius: 15px;

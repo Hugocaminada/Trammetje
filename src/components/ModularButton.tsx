@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 
-interface Props {
+type Props = {
   label: string
   backgroundColor: string
   onPress: () => void
@@ -9,13 +9,13 @@ interface Props {
   height?: number
 }
 
-const ModularButton: React.FC<Props> = ({
+const ModularButton = ({
   label,
   backgroundColor,
   onPress,
   width = 247,
   height = 50,
-}) => {
+}: Props) => {
   const ButtonContainer = styled.TouchableOpacity`
     width: ${width}px;
     height: ${height}px;

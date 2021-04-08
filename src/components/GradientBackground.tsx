@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native'
 import styled from 'styled-components/native'
 import LinearGradient from 'react-native-linear-gradient'
 import {colors} from '../constants'
+import {WithChildren} from '../types'
 
 const MainContainer = styled.View`
   flex: 1;
@@ -21,12 +22,9 @@ const Content = styled.View`
   height: 100%;
 `
 
-interface Props {
-  // Not sure on the type here. Should accept any react components.
-  children: any
-}
+type Props = WithChildren<{}>
 
-const GradientBackground: React.FC<Props> = ({children}) => {
+const GradientBackground = ({children}: Props) => {
   return (
     <MainContainer>
       <LinearGradient

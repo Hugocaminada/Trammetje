@@ -1,13 +1,10 @@
 import React from 'react'
 import {ScrollView, Dimensions, Text} from 'react-native'
 import styled from 'styled-components/native'
+import {colors} from '../../contstants'
 import Card from '../Card'
 import GradientBackground from '../GradientBackground'
 import ModularButton from '../ModularButton'
-
-interface Props {
-  componentId: string
-}
 
 const windowHeight = Dimensions.get('window').height
 
@@ -18,7 +15,7 @@ const Spacer = styled.View`
 const MainContainer = styled.View`
   flex: 1;
   min-height: ${windowHeight}px;
-  background-color: lightgrey;
+  background-color: ${colors.grey};
   align-items: center;
   z-index: 2;
 `
@@ -29,6 +26,8 @@ const ButtonContainer = styled.View`
   top: -25px;
   z-index: 2;
 `
+
+interface Props {}
 
 const Homescreen: React.FC<Props> = ({}) => {
   // const isDarkMode = useColorScheme() === 'dark'
@@ -41,7 +40,7 @@ const Homescreen: React.FC<Props> = ({}) => {
           <ButtonContainer>
             <ModularButton
               label="Stap in"
-              backgroundColor="#bb6bd9"
+              backgroundColor={colors.purple}
               onPress={() => {
                 console.log('pressed')
               }}

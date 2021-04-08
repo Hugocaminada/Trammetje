@@ -2,6 +2,7 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import styled from 'styled-components/native'
 import LinearGradient from 'react-native-linear-gradient'
+import {colors} from '../contstants'
 
 const MainContainer = styled.View`
   flex: 1;
@@ -30,7 +31,7 @@ const GradientBackground: React.FC<Props> = ({children}) => {
     <MainContainer>
       <LinearGradient
         colors={[
-          '#56CCF2',
+          colors.lightblue,
           'rgba(132, 176, 235, 0.8)',
           'rgba(132, 176, 235, 0.8)',
         ]}

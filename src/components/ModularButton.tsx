@@ -14,7 +14,7 @@ const ModularButton: React.FC<Props> = ({
   backgroundColor,
   onPress,
   width = 247,
-  height = '50',
+  height = 50,
 }) => {
   const ButtonContainer = styled.TouchableOpacity`
     width: ${width}px;

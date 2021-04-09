@@ -24,22 +24,20 @@ const Content = styled.View`
 
 type Props = WithChildren<{}>
 
-const GradientBackground = ({children}: Props) => {
-  return (
-    <MainContainer>
-      <LinearGradient
-        colors={[
-          colors.lightblue,
-          'rgba(132, 176, 235, 0.8)',
-          'rgba(132, 176, 235, 0.8)',
-        ]}
-        style={styles.linearGradient}
-      />
-      <BottomHalf />
-      <Content>{children}</Content>
-    </MainContainer>
-  )
-}
+const GradientBackground = ({children}: Props) => (
+  <MainContainer>
+    <LinearGradient
+      colors={[
+        colors.lightblue,
+        'rgba(132, 176, 235, 0.8)',
+        'rgba(132, 176, 235, 0.8)',
+      ]}
+      style={styles.linearGradient}
+    />
+    <BottomHalf />
+    <Content>{children}</Content>
+  </MainContainer>
+)
 
 var styles = StyleSheet.create({
   linearGradient: {

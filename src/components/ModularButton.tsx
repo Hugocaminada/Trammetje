@@ -40,16 +40,14 @@ const ModularButton = ({
   onPress,
   height,
   backgroundColor,
-}: ModularButtonProps) => {
-  return (
-    <ButtonContainer
-      onPress={onPress}
-      height={height}
-      backgroundColor={backgroundColor}>
-      <ButtonText>{label}</ButtonText>
-    </ButtonContainer>
-  )
-}
+}: ModularButtonProps) => (
+  <ButtonContainer
+    onPress={onPress}
+    height={height}
+    backgroundColor={backgroundColor}>
+    <ButtonText>{label}</ButtonText>
+  </ButtonContainer>
+)
 
 ModularButton.defaultProps = {
   height: 50,

@@ -9,7 +9,6 @@ interface ButtonContainerProps {
 }
 
 const ButtonContainer = styled.TouchableOpacity<ButtonContainerProps>`
-  width: ${props => props.width}px;
   height: ${props => props.height}px;
   background-color: ${props => props.backgroundColor};
   align-self: center;
@@ -26,27 +25,26 @@ const ButtonText = styled.Text`
   align-items: center;
   text-align: center;
   color: ${colors.white};
+  padding-horizontal: 30px;
+  min-width: 247px;
 `
 
 interface ModularButtonProps {
   label: string
   backgroundColor: string
   onPress: () => void
-  width?: number
   height?: number
 }
 
 const ModularButton = ({
   label,
   onPress,
-  width,
   height,
   backgroundColor,
 }: ModularButtonProps) => {
   return (
     <ButtonContainer
       onPress={onPress}
-      width={width}
       height={height}
       backgroundColor={backgroundColor}>
       <ButtonText>{label}</ButtonText>
@@ -55,7 +53,6 @@ const ModularButton = ({
 }
 
 ModularButton.defaultProps = {
-  width: 247,
   height: 50,
 }
 

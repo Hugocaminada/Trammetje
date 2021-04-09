@@ -27,6 +27,7 @@ const MainContainer = styled.View`
   background-color: ${colors.gray};
   align-items: center;
   z-index: 2;
+  padding-horizontal: 15px;
 `
 
 const ButtonContainer = styled.View`

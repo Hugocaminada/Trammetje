@@ -9,9 +9,9 @@ const Card = ({children}: Props) => {
   const MainContainer = styled.View`
     background-color: ${colors.white};
     border-radius: 15px;
-    margin-vertical: 20%;
-    padding: 5%;
-    width: 95%;
+    margin-top: 50px;
+    padding: 20px;
+    width: 100%;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
   `
 

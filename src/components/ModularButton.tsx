@@ -4,7 +4,6 @@ import {colors} from '../constants'
 
 interface ButtonContainerProps {
   backgroundColor: string
-  width?: number
   height?: number
 }
 

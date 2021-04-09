@@ -1,5 +1,4 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
 import styled from 'styled-components/native'
 import LinearGradient from 'react-native-linear-gradient'
 import {colors} from '../constants'
@@ -8,6 +7,10 @@ import type {WithChildren} from '../types'
 const MainContainer = styled.View`
   flex: 1;
   background-color: red;
+`
+
+const StyledGradient = styled(LinearGradient)`
+  flex: 1;
 `
 
 const BottomHalf = styled.View`
@@ -26,23 +29,16 @@ type Props = WithChildren<{}>
 
 const GradientBackground = ({children}: Props) => (
   <MainContainer>
-    <LinearGradient
+    <StyledGradient
       colors={[
         colors.lightblue,
         'rgba(132, 176, 235, 0.8)',
         'rgba(132, 176, 235, 0.8)',
       ]}
-      style={styles.linearGradient}
     />
     <BottomHalf />
     <Content>{children}</Content>
   </MainContainer>
 )
-
-var styles = StyleSheet.create({
-  linearGradient: {
-    flex: 1,
-  },
-})
 
 export default GradientBackground

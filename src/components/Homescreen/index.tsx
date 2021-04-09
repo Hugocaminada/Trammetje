@@ -36,7 +36,9 @@ const ButtonContainer = styled.View`
   z-index: 2;
 `
 
-type Props = {}
+type Props = {
+  componentId: string
+}
 
 const Homescreen = ({}: Props) => {
   // const isDarkMode = useColorScheme() === 'dark'

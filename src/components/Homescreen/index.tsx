@@ -1,12 +1,14 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {ScrollView, Dimensions, Text} from 'react-native'
 import styled from 'styled-components/native'
+import BlockContent from '@sanity/block-content-to-react'
 import {useAppDispatch, useAppSelector} from '../../app/hooks'
 import {colors} from '../../constants'
 import {increment} from '../../features/counter/counterSlice'
 import Card from '../Card'
 import GradientBackground from '../GradientBackground'
 import ModularButton from '../ModularButton'
+import sanityClient from '../../client'
 
 const windowHeight = Dimensions.get('window').height
 
@@ -35,6 +37,12 @@ const ButtonContainer = styled.View`
   align-self: center;
   top: -25px;
   z-index: 2;
+  margin-bottom: 100px;
+`
+
+const CardsContainer = styled.View`
+  width: 100%;
+  margin-top: 30px;
 `
 
 type Props = {
@@ -43,6 +51,30 @@ type Props = {
 
 const Homescreen = ({}: Props) => {
   // const isDarkMode = useColorScheme() === 'dark'
+
+  type Card = {
+    title: string
+    body: BlockContent
+  }
+
+  const [allPostsData, setAllPostsData] = useState<Card[] | undefined>(
+    undefined,
+  )
+
+  useEffect(() => {
+    sanityClient
+      .fetch(
+        `*[_type == "post"]{
+        title,
+        body
+      }`,
+      )
+      .then(data => {
+        setAllPostsData(data)
+        console.log(data)
+      })
+      .catch(console.error)
+  }, [])
 
   const count = useAppSelector(state => state.counter.value)
   const dispatch = useAppDispatch()
@@ -60,9 +92,18 @@ const Homescreen = ({}: Props) => {
               onPress={() => dispatch(increment())}
             />
           </ButtonContainer>
-          <Card>
-            <Text>Teams</Text>
-          </Card>
+          <CardsContainer>
+            {allPostsData &&
+              allPostsData.map((post, index) => (
+                <Card key={index} title={post.title}>
+                  <BlockContent
+                    blocks={post.body}
+                    projectId={sanityClient.config().projectId}
+                    dataset={sanityClient.config().dataset}
+                  />
+                </Card>
+              ))}
+          </CardsContainer>
         </MainContainer>
       </ScrollView>
     </GradientBackground>

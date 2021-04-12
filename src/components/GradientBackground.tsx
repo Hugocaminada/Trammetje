@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/native'
 import LinearGradient from 'react-native-linear-gradient'
 import {colors} from '../constants'
-import type {WithChildren} from '../types'
+import type {WithChildren} from '../../@types/types'
 
 const MainContainer = styled.View`
   flex: 1;

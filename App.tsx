@@ -3,13 +3,9 @@ import {Provider} from 'react-redux'
 import HomeScreen from './src/components/Homescreen'
 import store from './src/app/store'
 
-type Props = {
-  componentId: string
-}
-
-const App = ({componentId}: Props) => (
+const App = () => (
   <Provider store={store}>
-    <HomeScreen componentId={componentId} />
+    <HomeScreen />
   </Provider>
 )
 

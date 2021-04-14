@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {ScrollView, Dimensions, Text} from 'react-native'
+import {Dimensions, Text} from 'react-native'
 import styled from 'styled-components/native'
 import {useAppDispatch, useAppSelector} from '../../app/hooks'
 import {colors} from '../../constants'
@@ -8,6 +8,7 @@ import Card from '../Card'
 import GradientBackground from '../GradientBackground'
 import ModularButton from '../ModularButton'
 import sanityClient from '../../client'
+import {getClosedStops} from '../../methodes'
 
 const windowHeight = Dimensions.get('window').height
 
@@ -19,24 +20,26 @@ const CounterText = styled.Text`
 `
 
 const Spacer = styled.View`
-  height: ${windowHeight / 2}px;
+  height: ${windowHeight * 0.25}px;
+`
+
+const WrapperView = styled.ScrollView`
+  flex: 1;
 `
 
 const MainContainer = styled.View`
   flex: 1;
-  min-height: ${windowHeight}px;
+  height: ${windowHeight * 0.75}px;
   background-color: ${colors.gray};
   align-items: center;
-  z-index: 2;
   padding-horizontal: 15px;
+  margin-bottom: 0px;
 `
 
 const ButtonContainer = styled.View`
   position: absolute;
   align-self: center;
   top: -25px;
-  z-index: 2;
-  margin-bottom: 100px;
 `
 
 const CardsContainer = styled.View`
@@ -44,11 +47,7 @@ const CardsContainer = styled.View`
   margin-top: 30px;
 `
 
-type Props = {
-  componentId: string
-}
-
-const Homescreen = ({}: Props) => {
+const Homescreen = () => {
   // const isDarkMode = useColorScheme() === 'dark'
 
   type Line = {
@@ -91,13 +90,13 @@ const Homescreen = ({}: Props) => {
   const dispatch = useAppDispatch()
 
   if (allStops) {
-    console.log(allStops)
+    getClosedStops({lat: 52.103449323791196, lon: 4.281814867056914}, allStops)
   }
 
   return (
     <GradientBackground>
       <CounterText>{count}</CounterText>
-      <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+      <WrapperView>
         <Spacer />
         <MainContainer>
           <ButtonContainer>
@@ -113,7 +112,7 @@ const Homescreen = ({}: Props) => {
             </Card>
           </CardsContainer>
         </MainContainer>
-      </ScrollView>
+      </WrapperView>
     </GradientBackground>
   )
 }

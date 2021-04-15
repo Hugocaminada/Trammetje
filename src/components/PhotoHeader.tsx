@@ -2,13 +2,11 @@ import React from 'react'
 import {Dimensions} from 'react-native'
 import styled from 'styled-components/native'
 import LinearGradient from 'react-native-linear-gradient'
-import type {WithChildren} from '../../@types/types'
 
 const windowHeight = Dimensions.get('window').height
 
 const MainContainer = styled.View`
   flex: 1;
-  background-color: red;
 `
 
 const StyledGradient = styled(LinearGradient)`
@@ -32,14 +30,11 @@ const Content = styled.View`
   height: 100%;
 `
 
-type Props = WithChildren<{}>
-
-const GradientBackground = ({children}: Props) => (
+const PhotoHeader = () => (
   <MainContainer>
     <HeaderImage source={require('../assets/header-image.jpg')} />
     <StyledGradient colors={['rgba(0, 0, 0, 0.5)', 'rgba(0, 0, 0, 0)']} />
-    <Content>{children}</Content>
   </MainContainer>
 )
 
-export default GradientBackground
+export default PhotoHeader

@@ -4,11 +4,12 @@ import styled from 'styled-components/native'
 // import {useAppDispatch, useAppSelector} from '../../app/hooks'
 import {colors} from '../../constants'
 import Card from '../Card'
-import GradientBackground from '../ImageHeader'
+import PhotoHeader from '../PhotoHeader'
 import ModularButton from '../ModularButton'
 import StopSelectionModal from './StopSelectionModal'
 import sanityClient from '../../client'
 import {sortStopsByDistance} from '../../methodes'
+import type {Stop} from '../../../@types/types'
 
 const windowHeight = Dimensions.get('window').height
 
@@ -36,26 +37,12 @@ const CardsContainer = styled.View`
   margin-top: 30px;
 `
 
-type Line = {
-  number: number
-  directions: Array<string>
-}
-
-type Stop = {
-  name: string
-  slug: string
-  coordinates: {
-    lat: string
-    lon: string
-  }
-  lines: Line[]
-}
-
 const Homescreen = (): JSX.Element => {
   // const isDarkMode = useColorScheme() === 'dark'
 
   const [modalVisible, setModalVisible] = useState<boolean>(false)
   const [stopsByDistance, setStopsByDistance] = useState<Stop[]>()
+  const [buttonText, setButtonText] = useState('Kies je instaphalte')
 
   useEffect(() => {
     sanityClient
@@ -71,6 +58,7 @@ const Homescreen = (): JSX.Element => {
       }`,
       )
       .then(data => {
+        console.log(data)
         setStopsByDistance(
           sortStopsByDistance(
             {lat: 52.103449323791196, lon: 4.281814867056914},
@@ -81,44 +69,48 @@ const Homescreen = (): JSX.Element => {
       .catch(console.error)
   }, [])
 
+  const setDepartureStop = (stop: Stop) => {
+    setButtonText('Stap In')
+    console.log(stop)
+  }
+
   // const count = useAppSelector(state => state.counter.value)
   // const dispatch = useAppDispatch()
 
   return (
-    <GradientBackground>
-      <>
-        <Modal
-          animationType="slide"
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(false)
-          }}
-          transparent={true}
-          presentationStyle="overFullScreen">
-          <StopSelectionModal
-            setModalVisable={setModalVisible}
-            stopsByDistance={stopsByDistance}
-          />
-        </Modal>
-        <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
-          <Spacer height={windowHeight * 0.25} />
-          <MainContainer>
-            <ButtonContainer>
-              <ModularButton
-                label="Stap in"
-                backgroundColor={colors.red}
-                onPress={() => setModalVisible(true)}
-              />
-            </ButtonContainer>
-            <CardsContainer>
-              <Card title="Teams">
-                <Text>Test</Text>
-              </Card>
-            </CardsContainer>
-          </MainContainer>
-        </ScrollView>
-      </>
-    </GradientBackground>
+    <>
+      <Modal
+        animationType="slide"
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false)
+        }}
+        transparent={true}>
+        <StopSelectionModal
+          setModalVisable={setModalVisible}
+          stopsByDistance={stopsByDistance}
+          setDepartureStop={setDepartureStop}
+        />
+      </Modal>
+      <PhotoHeader />
+      <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+        <Spacer height={windowHeight * 0.25} />
+        <MainContainer>
+          <ButtonContainer>
+            <ModularButton
+              label={buttonText}
+              backgroundColor={colors.red}
+              onPress={() => setModalVisible(true)}
+            />
+          </ButtonContainer>
+          <CardsContainer>
+            <Card title="Teams">
+              <Text>Test</Text>
+            </Card>
+          </CardsContainer>
+        </MainContainer>
+      </ScrollView>
+    </>
   )
 }
 

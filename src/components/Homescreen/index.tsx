@@ -58,7 +58,6 @@ const Homescreen = (): JSX.Element => {
       }`,
       )
       .then(data => {
-        console.log(data)
         setStopsByDistance(
           sortStopsByDistance(
             {lat: 52.103449323791196, lon: 4.281814867056914},

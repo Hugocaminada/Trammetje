@@ -18,11 +18,6 @@ const Backdrop = styled.View`
   height: 100px;
 `
 
-const Item = styled.Text`
-  background-color: ${colors.white};
-  border: 1px;
-`
-
 type Props = {
   setModalVisable: Dispatch<SetStateAction<boolean>>
   stopsByDistance: Stop[]
@@ -67,7 +62,13 @@ const StopSelectionModal = ({
         <FlatList
           data={otherStops}
           keyExtractor={(stop, index) => stop.name + index}
-          renderItem={({item}) => <Item>{item.name}</Item>}
+          renderItem={({item}) => (
+            <ModularButton
+              onPress={() => selectStop(item)}
+              label={item.name}
+              backgroundColor={colors.red}
+            />
+          )}
         />
       </MainContainer>
     </>

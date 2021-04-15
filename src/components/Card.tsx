@@ -15,7 +15,7 @@ const MainContainer = styled.View`
 const Title = styled.Text`
   font-size: 20px;
   font-weight: 700;
-  color: ${colors.purple};
+  color: ${colors.darkGray};
   padding-bottom: 5px;
 `
 

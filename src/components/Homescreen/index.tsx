@@ -4,15 +4,15 @@ import styled from 'styled-components/native'
 // import {useAppDispatch, useAppSelector} from '../../app/hooks'
 import {colors} from '../../constants'
 import Card from '../Card'
-import GradientBackground from '../GradientBackground'
+import GradientBackground from '../ImageHeader'
 import ModularButton from '../ModularButton'
 import StopSelectionModal from './StopSelectionModal'
 import sanityClient from '../../client'
-import {getClosedStops} from '../../methodes'
+import {sortStopsByDistance} from '../../methodes'
 
 const windowHeight = Dimensions.get('window').height
 
-const Spacer = styled.View`
+const Spacer = styled.View<{height: number}>`
   height: ${props => props.height}px;
 `
 
@@ -51,12 +51,11 @@ type Stop = {
   lines: Line[]
 }
 
-const Homescreen = () => {
+const Homescreen = (): JSX.Element => {
   // const isDarkMode = useColorScheme() === 'dark'
 
   const [modalVisible, setModalVisible] = useState<boolean>(false)
-  const [allStops, setAllStops] = useState<Stop[]>()
-  const [closestStop, setClosestStop] = useState<Stop>()
+  const [stopsByDistance, setStopsByDistance] = useState<Stop[]>()
 
   useEffect(() => {
     sanityClient
@@ -72,14 +71,12 @@ const Homescreen = () => {
       }`,
       )
       .then(data => {
-        setAllStops(data)
-        setClosestStop(
-          getClosedStops(
+        setStopsByDistance(
+          sortStopsByDistance(
             {lat: 52.103449323791196, lon: 4.281814867056914},
             data,
           ),
         )
-        console.log(data)
       })
       .catch(console.error)
   }, [])
@@ -100,17 +97,16 @@ const Homescreen = () => {
           presentationStyle="overFullScreen">
           <StopSelectionModal
             setModalVisable={setModalVisible}
-            closestStop={closestStop}
-            allStops={allStops}
+            stopsByDistance={stopsByDistance}
           />
         </Modal>
-        <ScrollView showVerticalIndicator={false} bounces={false}>
+        <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
           <Spacer height={windowHeight * 0.25} />
           <MainContainer>
             <ButtonContainer>
               <ModularButton
                 label="Stap in"
-                backgroundColor={colors.purple}
+                backgroundColor={colors.red}
                 onPress={() => setModalVisible(true)}
               />
             </ButtonContainer>

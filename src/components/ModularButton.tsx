@@ -8,7 +8,7 @@ type ButtonContainerProps = {
 }
 
 type ButtonTextProps = {
-  textColor: string
+  textColor?: string
   textAlign?: 'left' | 'center' | 'right'
   minWidth?: string
   fontWeight?: number

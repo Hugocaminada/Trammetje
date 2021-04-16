@@ -14,4 +14,5 @@ export type Stop = {
       lon: string
     }
     lines: Line[]
+    direction: number
   }

@@ -73,7 +73,7 @@ const StopSelectionModal = ({
   stopsByDistance,
   setDepartureStop,
 }: Props) => {
-  const [closestStop, setClosestStop] = useState<Stop>()
+  const [closestStop, setClosestStop] = useState<Stop>(stopsByDistance[0])
   const [otherStops, setOtherStops] = useState<Stop[]>([])
 
   useEffect(() => {

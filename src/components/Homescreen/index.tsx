@@ -50,8 +50,9 @@ const Homescreen = () => {
     stopSelectionModalVisible,
     setStopSelectionModalVisible,
   ] = useState<boolean>(false)
-  const [stopsByDistance, setStopsByDistance] = useState<Stop[]>()
-  const [buttonText, setButtonText] = useState('Kies je instaphalte')
+  const [stopsByDistance, setStopsByDistance] = useState<Stop[]>([])
+  const [buttonText, setButtonText] = useState<string>('Kies je instaphalte')
+  const [stopSelected, setStopSelected] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
   const departureStop = useAppSelector(state => state.travelStops.departureStop)
@@ -84,6 +85,7 @@ const Homescreen = () => {
   const setDepartureStop = (stop: Stop) => {
     setButtonText('Stap In')
     dispatch(addDeparture(stop))
+    setStopSelected(true)
   }
 
   return (
@@ -110,7 +112,7 @@ const Homescreen = () => {
               label={buttonText}
               backgroundColor={colors.red}
               onPress={() =>
-                departureStop
+                stopSelected
                   ? console.warn('volgende scherm moet ik nog maken')
                   : setStopSelectionModalVisible(true)
               }
@@ -119,7 +121,7 @@ const Homescreen = () => {
           <CardsContainer>
             {
               // Here we also need to include a way for the user to select which tram line he is taking and pass that over to DirectionsCard.
-              departureStop && (
+              stopSelected && (
                 <>
                   <Pressable onPress={() => setStopSelectionModalVisible(true)}>
                     <StopConfirmationText fontWeight={400}>

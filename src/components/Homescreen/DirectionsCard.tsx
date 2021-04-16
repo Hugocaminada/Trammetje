@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components/native'
 import {colors} from '../../constants'
 import Card from '../Card'
@@ -13,30 +13,41 @@ const AnswerContainer = styled.View`
   border-color: ${colors.gray};
 `
 
-const Answer = styled.TouchableOpacity<{selected: boolean; side: string}>`
+type AnswerProps = {
+  selected?: boolean
+  side?: string
+}
+
+const Answer = styled.TouchableOpacity<AnswerProps>`
   width: 50%;
   height: 50px;
   ${props =>
     props.side === 'left'
       ? 'border-bottom-left-radius: 15px;'
-      : 'border-bottom-right-radius: 15px;'}
+      : props.side === 'right'
+      ? 'border-bottom-right-radius: 15px;'
+      : null}
   justify-content: center;
   align-items: center;
   ${props => props.selected && 'background-color: ' + colors.lightGreen}
 `
 
-const AnswerText = styled.Text<{selected: boolean}>`
+const AnswerText = styled.Text<AnswerProps>`
   font-weight: ${props => (props.selected ? '300' : '200')};
   font-size: 20px;
 `
 
-const DirectionsCard = ({line}) => {
+type Props = {
+  line: number
+}
+
+const DirectionsCard = ({line}: Props) => {
   const [travelDirection, setTravelDirection] = useState(0)
 
   const dispatch = useAppDispatch()
   const departureStop = useAppSelector(state => state.travelStops.departureStop)
 
-  const changeTravelDirection = direction => {
+  const changeTravelDirection = (direction: number) => {
     setTravelDirection(direction)
     dispatch(
       addDeparture({
@@ -45,12 +56,6 @@ const DirectionsCard = ({line}) => {
       }),
     )
   }
-
-  useEffect(() => {
-    // needs to be called once to dispatch default direction in redux. There might be a better way to do this.
-    changeTravelDirection(0)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const leftAnswerSelected =
     departureStop.lines[line].directions[0] ===
@@ -68,7 +73,7 @@ const DirectionsCard = ({line}) => {
           side="left"
           onPress={() => changeTravelDirection(0)}>
           <AnswerText selected={leftAnswerSelected}>
-            {departureStop.lines[line].directions[0]}
+            {departureStop && departureStop.lines[line].directions[0]}
           </AnswerText>
         </Answer>
         <Answer
@@ -76,7 +81,7 @@ const DirectionsCard = ({line}) => {
           side="right"
           onPress={() => changeTravelDirection(1)}>
           <AnswerText selected={rightAnswerSelected}>
-            {departureStop.lines[line].directions[1]}
+            {departureStop && departureStop.lines[line].directions[1]}
           </AnswerText>
         </Answer>
       </AnswerContainer>

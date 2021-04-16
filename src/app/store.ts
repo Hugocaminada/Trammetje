@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit'
-import stopReducer from '../features/counter/stopSlice'
+import stopReducer from '../features/stop/stopSlice'
 
 const store = configureStore({
   reducer: {

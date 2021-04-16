@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import {Modal, ScrollView, Dimensions, Text} from 'react-native'
+import {Modal, ScrollView, Dimensions, Text, Pressable} from 'react-native'
 import styled from 'styled-components/native'
-import {useAppDispatch} from '../../app/hooks'
-import {addDeparture} from '../../features/counter/stopSlice'
+import {useAppDispatch, useAppSelector} from '../../app/hooks'
+import {addDeparture} from '../../features/stop/stopSlice'
 import {colors} from '../../constants'
 import Card from '../Card'
 import PhotoHeader from '../PhotoHeader'
@@ -11,6 +11,7 @@ import StopSelectionModal from './StopSelectionModal'
 import sanityClient from '../../client'
 import {sortStopsByDistance} from '../../methodes'
 import type {Stop} from '../../../@types/types'
+import DirectionsCard from './DirectionsCard'
 
 const windowHeight = Dimensions.get('window').height
 
@@ -21,10 +22,10 @@ const Spacer = styled.View<{height: number}>`
 const MainContainer = styled.View`
   flex: 1;
   height: ${windowHeight * 0.75}px;
-  background-color: ${colors.gray};
+  background-color: ${colors.lightGray};
   align-items: center;
   padding-horizontal: 15px;
-  margin-bottom: 0px;
+  padding-top: 20px;
 `
 
 const ButtonContainer = styled.View`
@@ -38,14 +39,25 @@ const CardsContainer = styled.View`
   margin-top: 30px;
 `
 
-const Homescreen = (): JSX.Element => {
-  const [modalVisible, setModalVisible] = useState<boolean>(false)
+const StopConfirmationText = styled.Text<{fontWeight: number}>`
+  text-align: center;
+  font-weight: ${props => props.fontWeight};
+  color: ${colors.darkGray};
+`
+
+const Homescreen = () => {
+  const [
+    stopSelectionModalVisible,
+    setStopSelectionModalVisible,
+  ] = useState<boolean>(false)
   const [stopsByDistance, setStopsByDistance] = useState<Stop[]>()
   const [buttonText, setButtonText] = useState('Kies je instaphalte')
 
   const dispatch = useAppDispatch()
+  const departureStop = useAppSelector(state => state.travelStops.departureStop)
 
   useEffect(() => {
+    // TODO: add loading state.
     sanityClient
       .fetch(
         `*[_type == "stop"]{
@@ -72,20 +84,19 @@ const Homescreen = (): JSX.Element => {
   const setDepartureStop = (stop: Stop) => {
     setButtonText('Stap In')
     dispatch(addDeparture(stop))
-    console.log(stop)
   }
 
   return (
     <>
       <Modal
         animationType="slide"
-        visible={modalVisible}
+        visible={stopSelectionModalVisible}
         onRequestClose={() => {
-          setModalVisible(false)
+          setStopSelectionModalVisible(false)
         }}
         transparent={true}>
         <StopSelectionModal
-          setModalVisable={setModalVisible}
+          setModalVisable={setStopSelectionModalVisible}
           stopsByDistance={stopsByDistance}
           setDepartureStop={setDepartureStop}
         />
@@ -98,12 +109,36 @@ const Homescreen = (): JSX.Element => {
             <ModularButton
               label={buttonText}
               backgroundColor={colors.red}
-              onPress={() => setModalVisible(true)}
+              onPress={() =>
+                departureStop
+                  ? console.warn('volgende scherm moet ik nog maken')
+                  : setStopSelectionModalVisible(true)
+              }
             />
           </ButtonContainer>
           <CardsContainer>
-            <Card title="Teams">
-              <Text>Test</Text>
+            {
+              // Here we also need to include a way for the user to select which tram line he is taking and pass that over to DirectionsCard.
+              departureStop && (
+                <>
+                  <Pressable onPress={() => setStopSelectionModalVisible(true)}>
+                    <StopConfirmationText fontWeight={400}>
+                      Instaphalte:{' '}
+                      <StopConfirmationText fontWeight={500}>
+                        {departureStop.name}
+                      </StopConfirmationText>
+                    </StopConfirmationText>
+                    <StopConfirmationText fontWeight={200}>
+                      Kies andere instaphalte
+                    </StopConfirmationText>
+                  </Pressable>
+                  <Spacer height={25} />
+                  <DirectionsCard line={0} />
+                </>
+              )
+            }
+            <Card title="Teams:">
+              <Text>{null}</Text>
             </Card>
           </CardsContainer>
         </MainContainer>

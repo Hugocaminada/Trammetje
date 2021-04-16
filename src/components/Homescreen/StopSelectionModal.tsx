@@ -38,7 +38,7 @@ const HeaderText = styled.Text`
 `
 
 const SubHeader = styled.Text`
-  background-color: ${colors.gray};
+  background-color: ${colors.lightGray};
   color: ${colors.darkGray};
   width: 100%;
   padding-vertical: 6px;
@@ -48,7 +48,7 @@ const SubHeader = styled.Text`
 `
 
 const Line = styled.View`
-  background-color: ${colors.gray};
+  background-color: ${colors.lightGray};
   width: 100%;
   height: 1px;
 `

@@ -3,13 +3,13 @@ import type { RootState } from '../../app/store'
 import type { Stop } from '../../../@types/types'
 
 interface StopState {
-    departureStop: Stop | {}
-    destinationStop: Stop | {}
+    departureStop: Stop | null
+    destinationStop: Stop | null
 }
 
 const initialState: StopState = {
-    departureStop: {},
-    destinationStop: {},
+    departureStop: null,
+    destinationStop: null,
 }
 
 export const counterSlice = createSlice({
@@ -23,10 +23,10 @@ export const counterSlice = createSlice({
             state.destinationStop = action.payload
         },
         removeDeparture: (state) => {
-            state.departureStop = {}
+            state.departureStop = null
         },
         removeDestination: (state) => {
-            state.destinationStop = {}
+            state.destinationStop = null
         },
     },
 })

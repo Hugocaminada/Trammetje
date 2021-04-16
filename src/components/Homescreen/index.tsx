@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {Modal, ScrollView, Dimensions, Text} from 'react-native'
 import styled from 'styled-components/native'
-// import {useAppDispatch, useAppSelector} from '../../app/hooks'
+import {useAppDispatch} from '../../app/hooks'
+import {addDeparture} from '../../features/counter/stopSlice'
 import {colors} from '../../constants'
 import Card from '../Card'
 import PhotoHeader from '../PhotoHeader'
@@ -38,11 +39,11 @@ const CardsContainer = styled.View`
 `
 
 const Homescreen = (): JSX.Element => {
-  // const isDarkMode = useColorScheme() === 'dark'
-
   const [modalVisible, setModalVisible] = useState<boolean>(false)
   const [stopsByDistance, setStopsByDistance] = useState<Stop[]>()
   const [buttonText, setButtonText] = useState('Kies je instaphalte')
+
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     sanityClient
@@ -70,11 +71,9 @@ const Homescreen = (): JSX.Element => {
 
   const setDepartureStop = (stop: Stop) => {
     setButtonText('Stap In')
+    dispatch(addDeparture(stop))
     console.log(stop)
   }
-
-  // const count = useAppSelector(state => state.counter.value)
-  // const dispatch = useAppDispatch()
 
   return (
     <>

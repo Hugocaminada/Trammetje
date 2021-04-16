@@ -1,9 +1,9 @@
 import {configureStore} from '@reduxjs/toolkit'
-import counterReducer from '../features/counter/counterSlice'
+import stopReducer from '../features/counter/stopSlice'
 
 const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    travelStops: stopReducer,
   },
 })
 

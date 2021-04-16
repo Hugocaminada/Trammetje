@@ -52,7 +52,7 @@ const DirectionsCard = ({line}: Props) => {
     dispatch(
       addDeparture({
         ...departureStop,
-        direction: departureStop.lines[line].directions[direction],
+        direction,
       }),
     )
   }

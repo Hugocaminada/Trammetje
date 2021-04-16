@@ -84,7 +84,7 @@ const Homescreen = () => {
 
   const setDepartureStop = (stop: Stop) => {
     setButtonText('Stap In')
-    dispatch(addDeparture(stop))
+    dispatch(addDeparture({...stop, direction: 0}))
     setStopSelected(true)
   }
 

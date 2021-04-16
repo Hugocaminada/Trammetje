@@ -128,14 +128,14 @@ const StopSelectionModal = ({
             />
           )}
           ItemSeparatorComponent={Line}
-          ListFooterComponent={() => (
+          ListFooterComponent={
             <>
               <Line />
               <Footer>
                 Je kunt alleen bij haltes in jouw omgeving instappen.
               </Footer>
             </>
-          )}
+          }
         />
       </MainContainer>
     </>

@@ -42,7 +42,14 @@ type Props = {
 }
 
 const DirectionsCard = ({line}: Props) => {
-  const [travelDirection, setTravelDirection] = useState(0)
+  enum TravelDirection {
+    Left,
+    Right,
+  }
+
+  const [travelDirection, setTravelDirection] = useState<TravelDirection>(
+    TravelDirection.Left,
+  )
 
   const dispatch = useAppDispatch()
   const departureStop = useAppSelector(state => state.travelStops.departureStop)
@@ -57,25 +64,22 @@ const DirectionsCard = ({line}: Props) => {
     )
   }
 
-  const leftAnswerSelected = travelDirection === 0
-  const rightAnswerSelected = travelDirection === 1
-
   return (
     <Card title="Welke richting ga je op?" centeredTitle={true}>
       <AnswerContainer>
         <Answer
-          selected={leftAnswerSelected}
+          selected={travelDirection === TravelDirection.Left}
           side="left"
-          onPress={() => changeTravelDirection(0)}>
-          <AnswerText selected={leftAnswerSelected}>
+          onPress={() => changeTravelDirection(TravelDirection.Left)}>
+          <AnswerText selected={travelDirection === TravelDirection.Left}>
             {departureStop && departureStop.lines[line].directions[0]}
           </AnswerText>
         </Answer>
         <Answer
-          selected={rightAnswerSelected}
+          selected={travelDirection === TravelDirection.Right}
           side="right"
-          onPress={() => changeTravelDirection(1)}>
-          <AnswerText selected={rightAnswerSelected}>
+          onPress={() => changeTravelDirection(TravelDirection.Right)}>
+          <AnswerText selected={travelDirection === TravelDirection.Right}>
             {departureStop && departureStop.lines[line].directions[1]}
           </AnswerText>
         </Answer>

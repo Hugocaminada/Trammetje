@@ -1,9 +1,13 @@
 import React, {useState} from 'react'
+import {View, StyleSheet} from 'react-native'
 import styled from 'styled-components/native'
 import {colors} from '../../constants'
 import Card from '../Card'
 import {useAppDispatch, useAppSelector} from '../../app/hooks'
 import {addDeparture} from '../../features/stop/stopSlice'
+import {useSpring, animated} from 'react-spring'
+
+const AnimatedView = animated(View)
 
 const AnswerContainer = styled.View`
   flex-direction: row;
@@ -29,30 +33,27 @@ const Answer = styled.TouchableOpacity<AnswerProps>`
       : null}
   justify-content: center;
   align-items: center;
-  ${props => props.selected && 'background-color: ' + colors.lightGreen}
 `
 
 const AnswerText = styled.Text<AnswerProps>`
   font-weight: ${props => (props.selected ? '300' : '200')};
   font-size: 20px;
 `
-
 type Props = {
   line: number
 }
 
 const DirectionsCard = ({line}: Props) => {
+  const dispatch = useAppDispatch()
+  const departureStop = useAppSelector(state => state.travelStops.departureStop)
+
   enum TravelDirection {
     Left,
     Right,
   }
-
   const [travelDirection, setTravelDirection] = useState<TravelDirection>(
     TravelDirection.Left,
   )
-
-  const dispatch = useAppDispatch()
-  const departureStop = useAppSelector(state => state.travelStops.departureStop)
 
   const changeTravelDirection = (direction: number) => {
     setTravelDirection(direction)
@@ -64,9 +65,20 @@ const DirectionsCard = ({line}: Props) => {
     )
   }
 
+  const styles = useSpring<{style?: StyleSheet}>({
+    position: 'absolute',
+    height: 50,
+    backgroundColor: colors.lightGreen,
+    width: '50%',
+    left: travelDirection ? '50%' : '0%',
+    borderBottomLeftRadius: travelDirection ? 0 : 15,
+    borderBottomRightRadius: travelDirection ? 15 : 0,
+  })
+
   return (
     <Card title="Welke richting ga je op?" centeredTitle={true}>
       <AnswerContainer>
+        <AnimatedView style={styles} />
         <Answer
           selected={travelDirection === TravelDirection.Left}
           side="left"

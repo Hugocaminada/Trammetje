@@ -79,10 +79,9 @@ const StopSelectionModal = ({
   useEffect(() => {
     setClosestStop(stopsByDistance[0])
 
-    setOtherStops([])
-    stopsByDistance.forEach((stop, index) => {
-      stop.distance < 0.5 && index > 0 && setOtherStops(prev => [...prev, stop])
-    })
+    setOtherStops(
+      stopsByDistance.filter((stop, index) => stop.distance < 0.5 && index > 0),
+    )
   }, [stopsByDistance])
 
   const selectStop = (stop: Stop) => {

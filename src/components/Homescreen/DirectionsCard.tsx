@@ -57,13 +57,8 @@ const DirectionsCard = ({line}: Props) => {
     )
   }
 
-  const leftAnswerSelected =
-    departureStop.lines[line].directions[0] ===
-    departureStop.lines[line].directions[travelDirection]
-
-  const rightAnswerSelected =
-    departureStop.lines[line].directions[1] ===
-    departureStop.lines[line].directions[travelDirection]
+  const leftAnswerSelected = travelDirection === 0
+  const rightAnswerSelected = travelDirection === 1
 
   return (
     <Card title="Welke richting ga je op?" centeredTitle={true}>

@@ -74,6 +74,7 @@ const Homescreen = () => {
       .then(data => {
         setStopsByDistance(
           sortStopsByDistance(
+            // TODO: Hardcoded location for now, should be real location:
             {lat: 52.103449323791196, lon: 4.281814867056914},
             data,
           ),

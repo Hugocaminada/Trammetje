@@ -99,7 +99,7 @@ const Homescreen = () => {
         }}
         transparent={true}>
         <StopSelectionModal
-          setModalVisable={setStopSelectionModalVisible}
+          setModalVisible={setStopSelectionModalVisible}
           stopsByDistance={stopsByDistance}
           setDepartureStop={setDepartureStop}
         />
@@ -128,7 +128,7 @@ const Homescreen = () => {
                     <StopConfirmationText fontWeight={400}>
                       Instaphalte:{' '}
                       <StopConfirmationText fontWeight={500}>
-                        {departureStop.name}
+                        {departureStop && departureStop.name}
                       </StopConfirmationText>
                     </StopConfirmationText>
                     <StopConfirmationText fontWeight={200}>

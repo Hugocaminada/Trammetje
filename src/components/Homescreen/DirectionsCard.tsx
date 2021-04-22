@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View} from 'react-native'
 import styled from 'styled-components/native'
 import {colors} from '../../constants'
 import Card from '../Card'
@@ -98,11 +98,6 @@ const DirectionsCard = ({line}: Props) => {
       </AnswerContainer>
     </Card>
   )
-}
-
-DirectionsCard.defaultProps = {
-  centeredTitle: false,
-  padding: true,
 }
 
 export default DirectionsCard

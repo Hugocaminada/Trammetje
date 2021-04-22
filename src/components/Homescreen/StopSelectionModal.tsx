@@ -63,13 +63,13 @@ const Footer = styled.Text`
 `
 
 type Props = {
-  setModalVisable: Dispatch<SetStateAction<boolean>>
+  setModalVisible: Dispatch<SetStateAction<boolean>>
   stopsByDistance: Stop[]
   setDepartureStop: (stop: Stop) => void
 }
 
 const StopSelectionModal = ({
-  setModalVisable,
+  setModalVisible,
   stopsByDistance,
   setDepartureStop,
 }: Props) => {
@@ -86,14 +86,14 @@ const StopSelectionModal = ({
 
   const selectStop = (stop: Stop) => {
     setDepartureStop(stop)
-    setModalVisable(false)
+    setModalVisible(false)
   }
 
   return (
     <>
       <TouchableWithoutFeedback
         onPress={() => {
-          setModalVisable(false)
+          setModalVisible(false)
         }}>
         <Backdrop />
       </TouchableWithoutFeedback>

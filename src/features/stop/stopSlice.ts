@@ -3,33 +3,13 @@ import type { RootState } from '../../app/store'
 import type { Stop } from '../../../@types/types'
 
 interface StopState {
-    departureStop: Stop
-    destinationStop: Stop
+    departureStop: Stop | null
+    destinationStop: Stop | null
 }
 
 const initialState: StopState = {
-    departureStop: {
-        name: '',
-        slug: '',
-        distance: 0,
-        coordinates: {
-          lat: '',
-          lon: '',
-        },
-        lines: [],
-        direction: 0,
-      },
-    destinationStop: {
-        name: '',
-        slug: '',
-        distance: 0,
-        coordinates: {
-          lat: '',
-          lon: '',
-        },
-        lines: [],
-        direction: 0,
-      },
+    departureStop: null,
+    destinationStop: null,
 }
 
 export const counterSlice = createSlice({

@@ -14,9 +14,9 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
   return d
 }
 
-export const sortStopsByDistance = (currentPos:{lat: number, lon: number}, stops: Stop[]) => {
+export const sortStopsByDistance = (currentPos: {latitude: number, longitude: number}, stops: Stop[]) => {
   for (let i = 0; i < stops.length; i++) {
-    stops[i].distance = calculateDistance(currentPos.lat, currentPos.lon, stops[i].coordinates.lat, stops[i].coordinates.lon)
+    stops[i].distance = calculateDistance(currentPos.latitude, currentPos.longitude, stops[i].coordinates.lat, stops[i].coordinates.lon)
   }
 
   return stops.sort((a, b) => a.distance - b.distance)

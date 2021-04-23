@@ -3,7 +3,7 @@ import {View} from 'react-native'
 import styled from 'styled-components/native'
 import {colors} from '../../constants'
 import Card from '../Card'
-import {useAppDispatch, useAppSelector} from '../../app/hooks'
+import {useAppDispatch, useAppSelector} from '../../app/hooks/redux'
 import {addDeparture} from '../../features/stop/stopSlice'
 import {useSpring, animated} from '@react-spring/native'
 

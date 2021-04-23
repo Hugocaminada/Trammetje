@@ -1,15 +1,18 @@
 import React from 'react'
+import {StatusBar} from 'react-native'
 import {Provider} from 'react-redux'
+import {QueryClientProvider, QueryClient} from 'react-query'
 import HomeScreen from './src/components/Homescreen'
 import store from './src/app/store'
 
-type Props = {
-  componentId: string
-}
+const queryClient = new QueryClient()
 
-const App = ({componentId}: Props) => (
+const App = () => (
   <Provider store={store}>
-    <HomeScreen componentId={componentId} />
+    <StatusBar barStyle="light-content" />
+    <QueryClientProvider client={queryClient}>
+      <HomeScreen />
+    </QueryClientProvider>
   </Provider>
 )
 

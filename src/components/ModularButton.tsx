@@ -2,9 +2,16 @@ import React from 'react'
 import styled from 'styled-components/native'
 import {colors} from '../constants'
 
-interface ButtonContainerProps {
+type ButtonContainerProps = {
   backgroundColor: string
   height?: number
+}
+
+type ButtonTextProps = {
+  textColor?: string
+  textAlign?: 'left' | 'center' | 'right'
+  minWidth?: string
+  fontWeight?: number
 }
 
 const ButtonContainer = styled.TouchableOpacity<ButtonContainerProps>`
@@ -15,24 +22,28 @@ const ButtonContainer = styled.TouchableOpacity<ButtonContainerProps>`
   justify-content: center;
 `
 
-const ButtonText = styled.Text`
+const ButtonText = styled.Text<ButtonTextProps>`
   font-style: normal;
-  font-weight: 500;
+  font-weight: ${props => props.fontWeight};
   font-size: 20px;
   line-height: 23px;
   display: flex;
   align-items: center;
-  text-align: center;
-  color: ${colors.white};
+  text-align: ${props => props.textAlign};
+  color: ${props => props.textColor};
   padding-horizontal: 30px;
-  min-width: 247px;
+  min-width: ${props => props.minWidth};
 `
 
 interface ModularButtonProps {
   label: string
   backgroundColor: string
   onPress: () => void
+  textColor?: string
   height?: number
+  textAlign?: 'left' | 'center' | 'right'
+  minWidth?: string
+  fontWeight: number
 }
 
 const ModularButton = ({
@@ -40,19 +51,31 @@ const ModularButton = ({
   onPress,
   height,
   backgroundColor,
-}: ModularButtonProps) => {
-  return (
-    <ButtonContainer
-      onPress={onPress}
-      height={height}
-      backgroundColor={backgroundColor}>
-      <ButtonText>{label}</ButtonText>
-    </ButtonContainer>
-  )
-}
+  textColor,
+  textAlign,
+  minWidth,
+  fontWeight,
+}: ModularButtonProps) => (
+  <ButtonContainer
+    onPress={onPress}
+    height={height}
+    backgroundColor={backgroundColor}>
+    <ButtonText
+      textColor={textColor}
+      textAlign={textAlign}
+      minWidth={minWidth}
+      fontWeight={fontWeight}>
+      {label}
+    </ButtonText>
+  </ButtonContainer>
+)
 
 ModularButton.defaultProps = {
   height: 50,
+  textColor: colors.white,
+  textAlign: 'center',
+  minWidth: '247px',
+  fontWeight: 500,
 }
 
 export default ModularButton

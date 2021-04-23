@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {Modal, ScrollView, Dimensions, Text, Pressable} from 'react-native'
+import {useQuery} from 'react-query'
 import styled from 'styled-components/native'
+import Spinner from 'react-native-loading-spinner-overlay'
 import {useAppDispatch, useAppSelector} from '../../app/hooks'
 import {addDeparture} from '../../features/stop/stopSlice'
 import {colors} from '../../constants'
@@ -57,31 +59,31 @@ const Homescreen = () => {
   const dispatch = useAppDispatch()
   const departureStop = useAppSelector(state => state.travelStops.departureStop)
 
+  const {data, isLoading} = useQuery<Stop[]>('stops', async () =>
+    sanityClient.fetch(
+      `*[_type == "stop"]{
+        name,
+        slug,
+        coordinates{
+          lat,
+          lon,
+        },
+        lines[]->,
+    }`,
+    ),
+  )
+
   useEffect(() => {
-    // TODO: add loading state.
-    sanityClient
-      .fetch(
-        `*[_type == "stop"]{
-          name,
-          slug,
-          coordinates{
-            lat,
-            lon,
-          },
-          lines[]->,
-      }`,
+    if (data) {
+      setStopsByDistance(
+        sortStopsByDistance(
+          // TODO: Hardcoded location for now, should be real location:
+          {lat: 52.103449323791196, lon: 4.281814867056914},
+          data,
+        ),
       )
-      .then(data => {
-        setStopsByDistance(
-          sortStopsByDistance(
-            // TODO: Hardcoded location for now, should be real location:
-            {lat: 52.103449323791196, lon: 4.281814867056914},
-            data,
-          ),
-        )
-      })
-      .catch(console.error)
-  }, [])
+    }
+  }, [data])
 
   const setDepartureStop = (stop: Stop) => {
     setButtonText('Stap In')
@@ -91,6 +93,12 @@ const Homescreen = () => {
 
   return (
     <>
+      <Spinner
+        visible={isLoading}
+        textContent={'Loading...'}
+        // eslint-disable-next-line react-native/no-inline-styles
+        textStyle={{color: 'white'}}
+      />
       <Modal
         animationType="slide"
         visible={stopSelectionModalVisible}

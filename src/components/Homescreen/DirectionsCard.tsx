@@ -5,7 +5,7 @@ import {colors} from '../../constants'
 import Card from '../Card'
 import {useAppDispatch, useAppSelector} from '../../app/hooks'
 import {addDeparture} from '../../features/stop/stopSlice'
-import {useSpring, animated} from 'react-spring'
+import {useSpring, animated} from '@react-spring/native'
 
 const AnimatedView = animated(View)
 

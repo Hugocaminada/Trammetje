@@ -1,6 +1,8 @@
-const Deg2Rad = (deg) => deg * Math.PI / 180
+import { Stop } from '../@types/types'
 
-const calculateDistance = (lat1, lon1, lat2, lon2) => {
+const Deg2Rad = (deg: number) => deg * Math.PI / 180
+
+const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
   lat1 = Deg2Rad(lat1)
   lat2 = Deg2Rad(lat2)
   lon1 = Deg2Rad(lon1)
@@ -12,7 +14,7 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   return d
 }
 
-export const sortStopsByDistance = (currentPos, stops) => {
+export const sortStopsByDistance = (currentPos:{lat: number, lon: number}, stops: Stop[]) => {
   for (let i = 0; i < stops.length; i++) {
     stops[i].distance = calculateDistance(currentPos.lat, currentPos.lon, stops[i].coordinates.lat, stops[i].coordinates.lon)
   }

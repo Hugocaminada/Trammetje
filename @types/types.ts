@@ -10,8 +10,8 @@ export type Stop = {
     slug: string
     distance: number
     coordinates: {
-      lat: string
-      lon: string
+      lat: number
+      lon: number
     }
     lines: Line[]
     direction: number

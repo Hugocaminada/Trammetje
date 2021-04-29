@@ -21,7 +21,6 @@ export const useGeolocation = (): [string, GeolocationData] => {
           latitude: pos.coords.latitude,
           longitude: pos.coords.longitude,
         })
-        console.log(pos.coords)
       },
       e => setError(e.message)
     )

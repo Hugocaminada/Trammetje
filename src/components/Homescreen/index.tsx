@@ -144,7 +144,7 @@ const Homescreen = () => {
                     </StopConfirmationText>
                   </Pressable>
                   <Spacer height={25} />
-                  <DirectionsCard line={0} />
+                  <DirectionsCard />
                 </>
               )
             }

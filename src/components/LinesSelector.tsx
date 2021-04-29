@@ -38,6 +38,7 @@ const LinesSelector = ({lines, onPress}: Props) => {
         keyExtractor={item => item.number.toString()}
         horizontal
         showsHorizontalScrollIndicator={false}
+        bounces={false}
       />
     </MainContainer>
   )

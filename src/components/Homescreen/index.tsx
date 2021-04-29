@@ -77,13 +77,7 @@ const Homescreen = () => {
 
   useEffect(() => {
     if (data && position) {
-      setStopsByDistance(
-        sortStopsByDistance(
-          // TODO: Hardcoded location for now, should be real location:
-          position,
-          data,
-        ),
-      )
+      setStopsByDistance(sortStopsByDistance(position, data))
     }
   }, [data, position])
 

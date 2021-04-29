@@ -4,7 +4,7 @@ import {useQuery} from 'react-query'
 import styled from 'styled-components/native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import {useAppDispatch, useAppSelector} from '../../app/hooks/redux'
-import {addDeparture} from '../../features/stop/stopSlice'
+import {addDeparture} from '../../features/stop/journeySlice'
 import {colors} from '../../constants'
 import Card from '../Card'
 import PhotoHeader from '../PhotoHeader'
@@ -59,7 +59,7 @@ const Homescreen = () => {
   const [error, position] = useGeolocation()
 
   const dispatch = useAppDispatch()
-  const departureStop = useAppSelector(state => state.travelStops.departureStop)
+  const departureStop = useAppSelector(state => state.journey.departureStop)
 
   const {data, isLoading} = useQuery<Stop[]>('stops', async () =>
     sanityClient.fetch(

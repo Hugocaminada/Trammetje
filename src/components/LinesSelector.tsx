@@ -3,6 +3,8 @@ import {FlatList} from 'react-native'
 import LineSquare from './LineSquare'
 import type {Line} from '../../@types/types'
 import styled from 'styled-components/native'
+import {useAppDispatch} from '../app/hooks/redux'
+import {addLine} from '../features/stop/journeySlice'
 
 const MainContainer = styled.View`
   justify-content: center;
@@ -12,16 +14,18 @@ const MainContainer = styled.View`
 `
 
 type Props = {
-  lines: Line[]
-  onPress: Dispatch<SetStateAction<number>>
+  lines: Line[] | null
+  onPress: Dispatch<SetStateAction<Line | null>>
 }
 
 const LinesSelector = ({lines, onPress}: Props) => {
   const [selectedLineIndex, setSelectedLineIndex] = useState<number>(0)
+  const dispatch = useAppDispatch()
 
-  const onPressLine = (lineIndex: number) => {
-    onPress(lineIndex)
-    setSelectedLineIndex(lineIndex)
+  const onPressLine = (item: Line, index: number) => {
+    dispatch(addLine({...item}))
+    onPress(item)
+    setSelectedLineIndex(index)
   }
 
   return (
@@ -31,7 +35,7 @@ const LinesSelector = ({lines, onPress}: Props) => {
         renderItem={({item, index}: {item: Line; index: number}) => (
           <LineSquare
             line={item}
-            onPress={() => onPressLine(index)}
+            onPress={() => onPressLine(item, index)}
             selected={selectedLineIndex === index}
           />
         )}

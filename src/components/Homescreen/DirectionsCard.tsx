@@ -4,9 +4,10 @@ import styled from 'styled-components/native'
 import {colors} from '../../constants'
 import Card from '../Card'
 import {useAppDispatch, useAppSelector} from '../../app/hooks/redux'
-import {addDeparture} from '../../features/stop/stopSlice'
+import {addDeparture} from '../../features/stop/journeySlice'
 import {useSpring, animated} from '@react-spring/native'
 import LinesSelector from '../LinesSelector'
+import type {Line} from '../../../@types/types'
 
 const AnimatedView = animated(View)
 
@@ -45,14 +46,16 @@ const AnswerText = styled.Text<AnswerProps>`
 
 const DirectionsCard = () => {
   const dispatch = useAppDispatch()
-  const departureStop = useAppSelector(state => state.travelStops.departureStop)
+  const departureStop = useAppSelector(state => state.journey.departureStop)
 
   enum TravelDirection {
     Left,
     Right,
   }
 
-  const [selectedLine, setSelectedLine] = useState<number>(0)
+  const [selectedLine, setSelectedLine] = useState<Line | null>(
+    departureStop && departureStop.lines[0],
+  )
   const [travelDirection, setTravelDirection] = useState<TravelDirection>(
     TravelDirection.Left,
   )
@@ -78,35 +81,33 @@ const DirectionsCard = () => {
   })
 
   return (
-    <Card title="Welke tram neem je?" centeredTitle={true}>
-      {departureStop && (
-        <>
-          <LinesSelector
-            lines={departureStop.lines}
-            onPress={setSelectedLine}
-          />
-          <AnswerContainer>
-            <AnimatedView style={styles} />
-            <Answer
-              selected={travelDirection === TravelDirection.Left}
-              side="left"
-              onPress={() => changeTravelDirection(TravelDirection.Left)}>
-              <AnswerText selected={travelDirection === TravelDirection.Left}>
-                {departureStop.lines[selectedLine].directions[0]}
-              </AnswerText>
-            </Answer>
-            <Answer
-              selected={travelDirection === TravelDirection.Right}
-              side="right"
-              onPress={() => changeTravelDirection(TravelDirection.Right)}>
-              <AnswerText selected={travelDirection === TravelDirection.Right}>
-                {departureStop.lines[selectedLine].directions[1]}
-              </AnswerText>
-            </Answer>
-          </AnswerContainer>
-        </>
-      )}
-    </Card>
+    selectedLine && (
+      <Card title="Welke tram neem je?" centeredTitle={true}>
+        <LinesSelector
+          lines={departureStop && departureStop.lines}
+          onPress={setSelectedLine}
+        />
+        <AnswerContainer>
+          <AnimatedView style={styles} />
+          <Answer
+            selected={travelDirection === TravelDirection.Left}
+            side="left"
+            onPress={() => changeTravelDirection(TravelDirection.Left)}>
+            <AnswerText selected={travelDirection === TravelDirection.Left}>
+              {selectedLine.directions[0]}
+            </AnswerText>
+          </Answer>
+          <Answer
+            selected={travelDirection === TravelDirection.Right}
+            side="right"
+            onPress={() => changeTravelDirection(TravelDirection.Right)}>
+            <AnswerText selected={travelDirection === TravelDirection.Right}>
+              {selectedLine.directions[1]}
+            </AnswerText>
+          </Answer>
+        </AnswerContainer>
+      </Card>
+    )
   )
 }
 

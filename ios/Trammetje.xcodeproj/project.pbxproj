@@ -160,7 +160,6 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				46218A443E40ED67A2D35DC2 /* [CP] Embed Pods Frameworks */,
 				06695DC72EB4DD1B42050782 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -183,7 +182,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				D773BBCF74BE5997B40CEA0D /* [CP] Embed Pods Frameworks */,
 				EEDEFF5EDD85341997652BBA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -282,23 +280,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Trammetje-TrammetjeTests/Pods-Trammetje-TrammetjeTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		46218A443E40ED67A2D35DC2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Trammetje-TrammetjeTests/Pods-Trammetje-TrammetjeTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Trammetje-TrammetjeTests/Pods-Trammetje-TrammetjeTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Trammetje-TrammetjeTests/Pods-Trammetje-TrammetjeTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A97965E1213211828417BFF7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -341,23 +322,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D773BBCF74BE5997B40CEA0D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Trammetje/Pods-Trammetje-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Trammetje/Pods-Trammetje-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Trammetje/Pods-Trammetje-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EEDEFF5EDD85341997652BBA /* [CP] Copy Pods Resources */ = {

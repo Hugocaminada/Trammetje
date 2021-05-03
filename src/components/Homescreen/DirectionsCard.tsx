@@ -53,8 +53,8 @@ const DirectionsCard = () => {
     Right,
   }
 
-  const [selectedLine, setSelectedLine] = useState<Line | null>(
-    departureStop && departureStop.lines[0],
+  const [selectedLine, setSelectedLine] = useState<Line | undefined>(
+    departureStop?.lines[0],
   )
   const [travelDirection, setTravelDirection] = useState<TravelDirection>(
     TravelDirection.Left,
@@ -80,34 +80,33 @@ const DirectionsCard = () => {
     borderBottomRightRadius: travelDirection ? 15 : 0,
   })
 
+  if (!selectedLine) {
+    return null
+  }
+
   return (
-    selectedLine && (
-      <Card title="Welke tram neem je?" centeredTitle={true}>
-        <LinesSelector
-          lines={departureStop && departureStop.lines}
-          onPress={setSelectedLine}
-        />
-        <AnswerContainer>
-          <AnimatedView style={styles} />
-          <Answer
-            selected={travelDirection === TravelDirection.Left}
-            side="left"
-            onPress={() => changeTravelDirection(TravelDirection.Left)}>
-            <AnswerText selected={travelDirection === TravelDirection.Left}>
-              {selectedLine.directions[0]}
-            </AnswerText>
-          </Answer>
-          <Answer
-            selected={travelDirection === TravelDirection.Right}
-            side="right"
-            onPress={() => changeTravelDirection(TravelDirection.Right)}>
-            <AnswerText selected={travelDirection === TravelDirection.Right}>
-              {selectedLine.directions[1]}
-            </AnswerText>
-          </Answer>
-        </AnswerContainer>
-      </Card>
-    )
+    <Card title="Welke tram neem je?" centeredTitle={true}>
+      <LinesSelector lines={departureStop?.lines} onPress={setSelectedLine} />
+      <AnswerContainer>
+        <AnimatedView style={styles} />
+        <Answer
+          selected={travelDirection === TravelDirection.Left}
+          side="left"
+          onPress={() => changeTravelDirection(TravelDirection.Left)}>
+          <AnswerText selected={travelDirection === TravelDirection.Left}>
+            {selectedLine.directions[0]}
+          </AnswerText>
+        </Answer>
+        <Answer
+          selected={travelDirection === TravelDirection.Right}
+          side="right"
+          onPress={() => changeTravelDirection(TravelDirection.Right)}>
+          <AnswerText selected={travelDirection === TravelDirection.Right}>
+            {selectedLine.directions[1]}
+          </AnswerText>
+        </Answer>
+      </AnswerContainer>
+    </Card>
   )
 }
 

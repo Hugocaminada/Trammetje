@@ -14,8 +14,8 @@ const MainContainer = styled.View`
 `
 
 type Props = {
-  lines: Line[] | null
-  onPress: Dispatch<SetStateAction<Line | null>>
+  lines: Line[] | undefined
+  onPress: Dispatch<SetStateAction<Line | undefined>>
 }
 
 const LinesSelector = ({lines, onPress}: Props) => {

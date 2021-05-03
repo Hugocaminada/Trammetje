@@ -3,6 +3,7 @@ export type WithChildren<T = {}> = T & {children: React.ReactNode}
 export type Line = {
   number: number
   directions: Array<string>
+  color: string
 }
 
 export type Stop = {

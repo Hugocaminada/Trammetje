@@ -12,6 +12,7 @@
     "postinstall": "rndebugger-open"
   },
   "dependencies": {
+    "@react-native-community/geolocation": "^2.0.2",
     "@react-spring/native": "^9.1.2",
     "@reduxjs/toolkit": "^1.5.1",
     "@sanity/client": "^2.7.1",

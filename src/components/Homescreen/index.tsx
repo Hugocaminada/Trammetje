@@ -3,8 +3,8 @@ import {Modal, ScrollView, Dimensions, Text, Pressable} from 'react-native'
 import {useQuery} from 'react-query'
 import styled from 'styled-components/native'
 import Spinner from 'react-native-loading-spinner-overlay'
-import {useAppDispatch, useAppSelector} from '../../app/hooks'
-import {addDeparture} from '../../features/stop/stopSlice'
+import {useAppDispatch, useAppSelector} from '../../app/hooks/redux'
+import {addDeparture} from '../../features/stop/journeySlice'
 import {colors} from '../../constants'
 import Card from '../Card'
 import PhotoHeader from '../PhotoHeader'
@@ -14,6 +14,7 @@ import sanityClient from '../../client'
 import {sortStopsByDistance} from '../../methodes'
 import type {Stop} from '../../../@types/types'
 import DirectionsCard from './DirectionsCard'
+import {useGeolocation} from '../../app/hooks/useGeolocation'
 
 const windowHeight = Dimensions.get('window').height
 
@@ -55,9 +56,10 @@ const Homescreen = () => {
   const [stopsByDistance, setStopsByDistance] = useState<Stop[]>([])
   const [buttonText, setButtonText] = useState<string>('Kies je instaphalte')
   const [stopSelected, setStopSelected] = useState<boolean>(false)
+  const [error, position] = useGeolocation()
 
   const dispatch = useAppDispatch()
-  const departureStop = useAppSelector(state => state.travelStops.departureStop)
+  const departureStop = useAppSelector(state => state.journey.departureStop)
 
   const {data, isLoading} = useQuery<Stop[]>('stops', async () =>
     sanityClient.fetch(
@@ -74,21 +76,19 @@ const Homescreen = () => {
   )
 
   useEffect(() => {
-    if (data) {
-      setStopsByDistance(
-        sortStopsByDistance(
-          // TODO: Hardcoded location for now, should be real location:
-          {lat: 52.103449323791196, lon: 4.281814867056914},
-          data,
-        ),
-      )
+    if (data && position) {
+      setStopsByDistance(sortStopsByDistance(position, data))
     }
-  }, [data])
+  }, [data, position])
 
   const setDepartureStop = (stop: Stop) => {
     setButtonText('Stap In')
     dispatch(addDeparture({...stop, direction: 0}))
     setStopSelected(true)
+  }
+
+  if (error) {
+    console.warn(error)
   }
 
   return (
@@ -144,7 +144,7 @@ const Homescreen = () => {
                     </StopConfirmationText>
                   </Pressable>
                   <Spacer height={25} />
-                  <DirectionsCard line={0} />
+                  <DirectionsCard />
                 </>
               )
             }

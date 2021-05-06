@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from 'react'
-import {Modal, ScrollView, Dimensions, Text, Pressable} from 'react-native'
+import {Modal, ScrollView, Dimensions, Pressable} from 'react-native'
 import {useQuery} from 'react-query'
 import styled from 'styled-components/native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import {useAppDispatch, useAppSelector} from '../../app/hooks/redux'
-import {addDeparture} from '../../features/stop/journeySlice'
+import {addDeparture} from '../../features/journeySlice'
 import {colors} from '../../constants'
-import Card from '../Card'
 import PhotoHeader from '../PhotoHeader'
 import ModularButton from '../ModularButton'
 import StopSelectionModal from './StopSelectionModal'
 import sanityClient from '../../client'
 import {sortStopsByDistance} from '../../methodes'
 import type {Stop} from '../../../@types/types'
-import DirectionsCard from './DirectionsCard'
+import DirectionsCard from '../Cards/DirectionsCard'
 import {useGeolocation} from '../../app/hooks/useGeolocation'
+import StatisticsCard from '../Cards/StatisticsCard'
 
 const windowHeight = Dimensions.get('window').height
 
@@ -128,29 +128,24 @@ const Homescreen = () => {
             />
           </ButtonContainer>
           <CardsContainer>
-            {
-              // Here we also need to include a way for the user to select which tram line he is taking and pass that over to DirectionsCard.
-              stopSelected && (
-                <>
-                  <Pressable onPress={() => setStopSelectionModalVisible(true)}>
-                    <StopConfirmationText fontWeight={400}>
-                      Instaphalte:{' '}
-                      <StopConfirmationText fontWeight={500}>
-                        {departureStop && departureStop.name}
-                      </StopConfirmationText>
+            {stopSelected && (
+              <>
+                <Pressable onPress={() => setStopSelectionModalVisible(true)}>
+                  <StopConfirmationText fontWeight={400}>
+                    Instaphalte:{' '}
+                    <StopConfirmationText fontWeight={500}>
+                      {departureStop && departureStop.name}
                     </StopConfirmationText>
-                    <StopConfirmationText fontWeight={200}>
-                      Kies andere instaphalte
-                    </StopConfirmationText>
-                  </Pressable>
-                  <Spacer height={25} />
-                  <DirectionsCard />
-                </>
-              )
-            }
-            <Card title="Teams:">
-              <Text>{null}</Text>
-            </Card>
+                  </StopConfirmationText>
+                  <StopConfirmationText fontWeight={200}>
+                    Kies andere instaphalte
+                  </StopConfirmationText>
+                </Pressable>
+                <Spacer height={25} />
+                <DirectionsCard />
+              </>
+            )}
+            <StatisticsCard />
           </CardsContainer>
         </MainContainer>
       </ScrollView>

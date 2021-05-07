@@ -1,6 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit'
-import journeyReducer from '../features/journeySlice'
-import userReducer from '../features/userSlice'
+import journeyReducer from '../slices/journeySlice'
+import userReducer from '../slices/userSlice'
 
 const store = configureStore({
   reducer: {

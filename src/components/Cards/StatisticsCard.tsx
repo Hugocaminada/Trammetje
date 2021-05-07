@@ -42,7 +42,7 @@ const StatisticsCard = () => {
   const savedCo2 = useAppSelector(state => state.user.savedCo2)
 
   return (
-    <Card title="Jouw Statestieken">
+    <Card title="Jouw Statistieken">
       <MainContainer>
         <RowContainer>
           <Circle>

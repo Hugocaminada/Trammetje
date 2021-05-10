@@ -1,20 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { RootState } from '../../app/store'
-import type { Stop, Line } from '../../../@types/types'
+import type { RootState } from '../app/store'
+import type { Stop, Line } from '../../@types/types'
 
-interface StopState {
+interface JourneyState {
     departureStop: Stop | null
     line: Line | null
     destinationStop: Stop | null
 }
 
-const initialState: StopState = {
+const initialState: JourneyState = {
     departureStop: null,
     line: null,
     destinationStop: null,
 }
 
-export const counterSlice = createSlice({
+export const journeySlice = createSlice({
     name: 'journey',
     initialState,
     reducers: {
@@ -39,10 +39,10 @@ export const counterSlice = createSlice({
     },
 })
 
-export const {addDeparture, addDestination, addLine, removeDeparture, removeDestination, removeLine} = counterSlice.actions
+export const {addDeparture, addDestination, addLine, removeDeparture, removeDestination, removeLine} = journeySlice.actions
 
 export const selectDeparture = (state: RootState) => state.journey.departureStop
 export const selectDestination = (state: RootState) => state.journey.destinationStop
 export const selectLine = (state: RootState) => state.journey.line
 
-export default counterSlice.reducer
+export default journeySlice.reducer

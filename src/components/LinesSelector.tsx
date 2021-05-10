@@ -4,7 +4,7 @@ import LineSquare from './LineSquare'
 import type {Line} from '../../@types/types'
 import styled from 'styled-components/native'
 import {useAppDispatch} from '../app/hooks/redux'
-import {addLine} from '../features/stop/journeySlice'
+import {addLine} from '../slices/journeySlice'
 
 const MainContainer = styled.View`
   justify-content: center;

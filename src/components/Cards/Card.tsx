@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import {colors} from '../constants'
-import type {WithChildren} from '../../@types/types'
+import {colors} from '../../constants'
+import type {WithChildren} from '../../../@types/types'
 
 const MainContainer = styled.View`
   background-color: ${colors.white};

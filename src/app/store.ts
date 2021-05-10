@@ -1,9 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit'
-import journeyReducer from '../features/stop/journeySlice'
+import journeyReducer from '../slices/journeySlice'
+import userReducer from '../slices/userSlice'
 
 const store = configureStore({
   reducer: {
     journey: journeyReducer,
+    user: userReducer,
   },
 })
 

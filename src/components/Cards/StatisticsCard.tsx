@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components/native'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
@@ -54,7 +54,13 @@ const StatisticsCard = () => {
           <Circle>
             <FontAwesomeIcon name="university" color={colors.white} size={20} />
           </Circle>
-          <MainText>{seenAttractions} Bezienswaardigheden gespot</MainText>
+          <MainText>
+            {seenAttractions}{' '}
+            {seenAttractions === 1
+              ? 'Bezienswaardigheid'
+              : 'Bezienswaardigheden'}{' '}
+            gespot
+          </MainText>
         </RowContainer>
         <RowContainer>
           <Circle>

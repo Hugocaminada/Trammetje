@@ -19,12 +19,6 @@ export default {
             title: 'Color',
             type: 'string',
         },
-        {
-            name: 'stops',
-            title: 'Stops',
-            type: 'array',
-            of: [{type: 'reference', to: {type: 'stop'}}],
-          },
     ],
     preview: {
         select: {

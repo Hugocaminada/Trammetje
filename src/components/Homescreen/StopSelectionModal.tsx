@@ -4,7 +4,6 @@ import styled from 'styled-components/native'
 import {colors} from '../../constants'
 import ModularButton from '../ModularButton'
 import type {Stop} from '../../../@types/types'
-import {DisclaimerText} from '../TextTypes'
 
 const MainContainer = styled.View`
   flex: 1;
@@ -52,7 +51,15 @@ const Line = styled.View`
   background-color: ${colors.lightGray};
   width: 100%;
   height: 1px;
-  margin-bottom: 10px;
+`
+
+const Footer = styled.Text`
+  width: 100%;
+  text-align: center;
+  color: ${colors.darkGray};
+  padding: 6px;
+  font-size: 12px;
+  font-weight: 200;
 `
 
 type Props = {
@@ -123,9 +130,9 @@ const StopSelectionModal = ({
           ListFooterComponent={
             <>
               <Line />
-              <DisclaimerText fontWeight={200}>
+              <Footer>
                 Je kunt alleen bij haltes in jouw omgeving instappen.
-              </DisclaimerText>
+              </Footer>
             </>
           }
         />

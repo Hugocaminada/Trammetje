@@ -6,10 +6,9 @@ import type {WithChildren} from '../../../@types/types'
 const MainContainer = styled.View`
   background-color: ${colors.white};
   border-radius: 15px;
-  margin-top: 25px;
-  max-width: 100%;
+  margin-bottom: 25px;
+  width: 100%;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-  margin-horizontal: 15px;
 `
 
 const Title = styled.Text<{centeredTitle?: boolean}>`

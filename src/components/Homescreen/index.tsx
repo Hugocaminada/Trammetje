@@ -15,8 +15,6 @@ import type {Stop} from '../../../@types/types'
 import DirectionsCard from '../Cards/DirectionsCard'
 import {useGeolocation} from '../../app/hooks/useGeolocation'
 import StatisticsCard from '../Cards/StatisticsCard'
-import DestinationStopSelector from '../DestinationStopSelector'
-import {DisclaimerText} from '../TextTypes'
 
 const windowHeight = Dimensions.get('window').height
 
@@ -26,9 +24,11 @@ const Spacer = styled.View<{height: number}>`
 
 const MainContainer = styled.View`
   flex: 1;
-  min-height: ${windowHeight * 0.75}px;
+  height: ${windowHeight * 0.75}px;
   background-color: ${colors.lightGray};
-  padding-bottom: 40px;
+  align-items: center;
+  padding-horizontal: 15px;
+  padding-top: 20px;
 `
 
 const ButtonContainer = styled.View`
@@ -42,6 +42,12 @@ const CardsContainer = styled.View`
   margin-top: 30px;
 `
 
+const StopConfirmationText = styled.Text<{fontWeight: number}>`
+  text-align: center;
+  font-weight: ${props => props.fontWeight};
+  color: ${colors.darkGray};
+`
+
 const Homescreen = () => {
   const [
     stopSelectionModalVisible,
@@ -49,14 +55,7 @@ const Homescreen = () => {
   ] = useState<boolean>(false)
   const [stopsByDistance, setStopsByDistance] = useState<Stop[]>([])
   const [buttonText, setButtonText] = useState<string>('Kies je instaphalte')
-  const [departureStopSelected, setDepartureStopSelected] = useState<boolean>(
-    false,
-  )
-  const [
-    destinationStopSelected,
-    setDestinationStopSelected,
-  ] = useState<boolean>(false)
-  const [journeyStarted, setJourneyStarted] = useState<boolean>(false)
+  const [stopSelected, setStopSelected] = useState<boolean>(false)
   const [error, position] = useGeolocation()
 
   const dispatch = useAppDispatch()
@@ -71,13 +70,7 @@ const Homescreen = () => {
           lat,
           lon,
         },
-        lines[]->{
-          stops[]->,
-          directions,
-          number,
-          color,
-          slug,
-        },
+        lines[]->,
     }`,
     ),
   )
@@ -91,12 +84,7 @@ const Homescreen = () => {
   const setDepartureStop = (stop: Stop) => {
     setButtonText('Stap In')
     dispatch(addDeparture({...stop, direction: 0}))
-    setDepartureStopSelected(true)
-  }
-
-  const startJourney = () => {
-    setJourneyStarted(true)
-    setButtonText('Stap uit')
+    setStopSelected(true)
   }
 
   if (error) {
@@ -133,35 +121,29 @@ const Homescreen = () => {
               label={buttonText}
               backgroundColor={colors.red}
               onPress={() =>
-                departureStopSelected
-                  ? startJourney()
+                stopSelected
+                  ? console.warn('volgende scherm moet ik nog maken')
                   : setStopSelectionModalVisible(true)
               }
             />
           </ButtonContainer>
           <CardsContainer>
-            {departureStopSelected && !journeyStarted && (
+            {stopSelected && (
               <>
                 <Pressable onPress={() => setStopSelectionModalVisible(true)}>
-                  <DisclaimerText fontWeight={400}>
+                  <StopConfirmationText fontWeight={400}>
                     Instaphalte:{' '}
-                    <DisclaimerText fontWeight={500}>
-                      {departureStop?.name}
-                    </DisclaimerText>
-                  </DisclaimerText>
-                  <DisclaimerText fontWeight={200}>
+                    <StopConfirmationText fontWeight={500}>
+                      {departureStop && departureStop.name}
+                    </StopConfirmationText>
+                  </StopConfirmationText>
+                  <StopConfirmationText fontWeight={200}>
                     Kies andere instaphalte
-                  </DisclaimerText>
+                  </StopConfirmationText>
                 </Pressable>
+                <Spacer height={25} />
+                <DirectionsCard />
               </>
-            )}
-            {departureStopSelected && !destinationStopSelected && (
-              <DirectionsCard />
-            )}
-            {journeyStarted && (
-              <DestinationStopSelector
-                setDestionationStopSelected={setDestinationStopSelected}
-              />
             )}
             <StatisticsCard />
           </CardsContainer>

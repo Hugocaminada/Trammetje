@@ -8,7 +8,7 @@ import {addDestination} from '../slices/journeySlice'
 import {DisclaimerText} from './TextTypes'
 import type {Stop} from '../../@types/types'
 
-const Item = styled.View`
+const Item = styled.Pressable`
   margin-bottom: 20px;
   justify-content: flex-end;
   height: 110px;
@@ -29,7 +29,7 @@ const LineContainer = styled.View`
   align-items: center;
 `
 
-const Circle = styled.Pressable<{selected: boolean}>`
+const Circle = styled.View<{selected: boolean}>`
   height: 15px;
   width: 15px;
   background-color: ${props =>
@@ -79,13 +79,10 @@ const DestinationStopSelector = ({setDestionationStopSelected}: Props) => {
         data={relevantStops}
         keyExtractor={item => item.slug.current}
         renderItem={({item}) => (
-          <Item>
-            <Name numberOfLines={2} onPress={() => onPress(item)}>
-              {item.name}
-            </Name>
+          <Item onPress={() => onPress(item)}>
+            <Name numberOfLines={2}>{item.name}</Name>
             <LineContainer>
               <Circle
-                onPress={() => onPress(item)}
                 selected={item.slug.current === destinationStop?.slug.current}
               />
               <YellowLine />

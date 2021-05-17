@@ -73,7 +73,10 @@ const Homescreen = () => {
         },
         lines[]->{
           stops[]->,
-          ...,
+          directions,
+          number,
+          color,
+          slug,
         },
     }`,
     ),

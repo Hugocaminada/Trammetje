@@ -15,13 +15,14 @@ const MainText = styled.Text`
   color: ${colors.red};
   font-size: 18px;
   font-weight: bold;
-  padding-left: 8px;
+  margin-horizontal: 10px;
+  padding-right: 5px;
 `
 
 const RowContainer = styled.View`
-  flex-direction: row;
   align-items: center;
-  height: 30px;
+  flex-direction: row;
+  min-height: 30px;
   margin-bottom: 10px;
 `
 
@@ -54,7 +55,7 @@ const StatisticsCard = () => {
           <Circle>
             <FontAwesomeIcon name="university" color={colors.white} size={20} />
           </Circle>
-          <MainText>
+          <MainText numberOfLines={2} adjustsFontSizeToFit>
             {seenAttractions}{' '}
             {seenAttractions === 1
               ? 'Bezienswaardigheid'

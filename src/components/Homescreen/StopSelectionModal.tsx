@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react'
-import {FlatList, TouchableWithoutFeedback} from 'react-native'
+import {FlatList} from 'react-native'
 import styled from 'styled-components/native'
 import {colors} from '../../constants'
 import ModularButton from '../ModularButton'
@@ -14,7 +14,7 @@ const MainContainer = styled.View`
   border-top-right-radius: 15px;
 `
 
-const Backdrop = styled.View`
+const Backdrop = styled.Pressable`
   height: 100px;
 `
 
@@ -91,12 +91,7 @@ const StopSelectionModal = ({
 
   return (
     <>
-      <TouchableWithoutFeedback
-        onPress={() => {
-          setModalVisible(false)
-        }}>
-        <Backdrop />
-      </TouchableWithoutFeedback>
+      <Backdrop onPress={() => setModalVisible(false)} />
       <MainContainer>
         <Header>
           <HeaderText>Kies je instaphalte:</HeaderText>

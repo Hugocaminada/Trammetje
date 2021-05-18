@@ -24,7 +24,16 @@ export default {
             title: 'Stops',
             type: 'array',
             of: [{type: 'reference', to: {type: 'stop'}}],
-          },
+        },
+        {
+            name: 'sights',
+            title: 'Sights',
+            type: 'array',
+            of: [{type: 'object', fields: [
+                {name: 'sight', type: 'reference', to: {type: 'stop'}, title: 'Sights'},
+                {name: 'direction', type: 'number', title: 'Direction'},
+            ]}],
+        },
     ],
     preview: {
         select: {

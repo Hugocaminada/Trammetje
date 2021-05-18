@@ -17,6 +17,7 @@ import {useGeolocation} from '../../app/hooks/useGeolocation'
 import StatisticsCard from '../Cards/StatisticsCard'
 import DestinationStopSelector from '../DestinationStopSelector'
 import {DisclaimerText} from '../TextTypes'
+import SightsCard from '../Cards/SightsCard'
 
 const windowHeight = Dimensions.get('window').height
 
@@ -159,9 +160,12 @@ const Homescreen = () => {
               <DirectionsCard />
             )}
             {journeyStarted && (
-              <DestinationStopSelector
-                setDestionationStopSelected={setDestinationStopSelected}
-              />
+              <>
+                <DestinationStopSelector
+                  setDestionationStopSelected={setDestinationStopSelected}
+                />
+                <SightsCard />
+              </>
             )}
             <StatisticsCard />
           </CardsContainer>

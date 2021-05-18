@@ -11,7 +11,7 @@ import type {Stop} from '../../@types/types'
 const Item = styled.Pressable`
   margin-bottom: 20px;
   justify-content: flex-end;
-  height: 110px;
+  min-height: 120px;
 `
 
 const Name = styled.Text`

@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useState} from 'react'
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react'
 import {FlatList} from 'react-native'
 import LineSquare from './LineSquare'
 import type {Line} from '../../@types/types'
@@ -27,6 +27,10 @@ const LinesSelector = ({lines, onPress}: Props) => {
     onPress(item)
     setSelectedLineIndex(index)
   }
+
+  useEffect(() => {
+    lines && dispatch(addLine({...lines[0]}))
+  }, [dispatch, lines])
 
   return (
     <MainContainer>

@@ -6,7 +6,7 @@ export default {
         {
             name: 'number',
             title: 'Number',
-            type: 'number',
+            type: 'string',
         },
         {
             name: 'directions',
@@ -29,10 +29,7 @@ export default {
             name: 'sights',
             title: 'Sights',
             type: 'array',
-            of: [{type: 'object', fields: [
-                {name: 'sight', type: 'reference', to: {type: 'stop'}, title: 'Sights'},
-                {name: 'direction', type: 'number', title: 'Direction'},
-            ]}],
+            of: [{type: 'reference', to: {type: 'sight'}}],
         },
     ],
     preview: {

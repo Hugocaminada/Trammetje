@@ -1,4 +1,5 @@
-import { Stop } from '../@types/types'
+import { Location, Stop } from '../@types/types'
+import { GeolocationData } from './app/hooks/useGeolocation'
 
 const Deg2Rad = (deg: number) => deg * Math.PI / 180
 
@@ -14,10 +15,20 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
   return d
 }
 
-export const sortStopsByDistance = (currentPos: {latitude: number, longitude: number}, stops: Stop[]) => {
-  for (let i = 0; i < stops.length; i++) {
-    stops[i].distance = calculateDistance(currentPos.latitude, currentPos.longitude, stops[i].coordinates.lat, stops[i].coordinates.lon)
+export const sortLocationsByDistance = <T extends Location>(currentPos: GeolocationData, locations: T[]) => {
+  for (let i = 0; i < locations.length; i++) {
+    locations[i].distance = calculateDistance(currentPos.latitude, currentPos.longitude, locations[i].coordinates.lat, locations[i].coordinates.lon)
   }
+  return locations.sort((a, b) => a.distance - b.distance)
+}
 
-  return stops.sort((a, b) => a.distance - b.distance)
+
+export const determainStopsAhead = (closestStop: Stop, stopsList: Stop[]): Stop[] => {
+  let stopsAhead: Stop[] = []
+  stopsList.map((stop, index) => {
+    if (stop.slug.current === closestStop.slug.current) {
+      stopsAhead = stopsList?.slice(index + 1)
+    }
+  })
+  return stopsAhead
 }

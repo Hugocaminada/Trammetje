@@ -16,6 +16,7 @@
     "@react-spring/native": "^9.1.2",
     "@reduxjs/toolkit": "^1.5.1",
     "@sanity/client": "^2.7.1",
+    "@sanity/image-url": "^0.140.22",
     "react": "17.0.1",
     "react-native": "0.64.0",
     "react-native-debugger-open": "^0.3.25",

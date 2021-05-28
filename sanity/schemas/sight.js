@@ -18,6 +18,11 @@ export default {
         },
       },
       {
+        name: 'description',
+        title: 'Description',
+        type: 'text',
+      },
+      {
         name: 'picture',
         title: 'Picture',
         type: 'image',
@@ -30,6 +35,12 @@ export default {
           {name: 'lat', type: 'string', title: 'Latitude'},
           {name: 'lon', type: 'string', title: 'Longitude'},
         ],
+      },
+      {
+        name: 'closestStop',
+        title: 'Closest Stop',
+        type: 'reference',
+        to: {type: 'stop'},
       },
     ],
     preview: {

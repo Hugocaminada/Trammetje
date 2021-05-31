@@ -18,10 +18,18 @@ type Props = {
   stopsSortedByDirection?: Stop[]
 }
 
-const Headphones = styled(Icon)`
+const AudioTour = styled.Pressable`
+  align-items: center;
+  flex-direction: row;
   position: absolute;
   right: 20px;
-  top: 20px;
+  top: 25px;
+`
+
+const AudioText = styled.Text`
+  font-size: 12px;
+  textDecorationLine: underline;
+  padding-right: 3px;
 `
 
 const SightsCard = ({position, stopsSortedByDirection}: Props) => {
@@ -98,12 +106,14 @@ const SightsCard = ({position, stopsSortedByDirection}: Props) => {
 
   return (
     <Card title="Je rijdt langs:">
-      <Headphones
+      <AudioTour onPress={handlePress}>
+        <AudioText>{audioTour ? 'Stop' : 'Start'} Audio Tour</AudioText>
+      <Icon
         name={audioTour ? 'headphones' : 'headphones-off'}
         size={20}
         color={colors.darkGray}
-        onPress={handlePress}
       />
+      </AudioTour>
       {sightsAhead?.map((sight, index) => (
         <SightItem sight={sight} key={index} index={index} />
       ))}

@@ -47,14 +47,14 @@ const SightsCard = ({position, stopsSortedByDirection}: Props) => {
 
   const handlePress = () => {
     setAudioTour(prev => !prev)
-    if (!audioTour) {
-      up.play((success) => {
+    if (audioTour) {
+      down.play((success) => {
         if (!success) {
           console.log('Sound did not play')
         }
       })
     } else {
-      down.play((success) => {
+      up.play((success) => {
         if (!success) {
           console.log('Sound did not play')
         }

@@ -11,6 +11,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		36DB32272664DAA7009AD3B5 /* down.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 36DB32252664DAA7009AD3B5 /* down.mp3 */; };
+		36DB32282664DAA7009AD3B5 /* up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 36DB32262664DAA7009AD3B5 /* up.mp3 */; };
 		5BAD28CFE6BD99BC6E5BCBFF /* libPods-Trammetje-TrammetjeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB3B90DE265B1137FC93C4E /* libPods-Trammetje-TrammetjeTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		F34C467368EEC6CF418726A1 /* libPods-Trammetje.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7EDA14A74A41519E89C49CF /* libPods-Trammetje.a */; };
@@ -52,6 +54,8 @@
 		367BE18026443357007DBA80 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		367BE18126443357007DBA80 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		367BE18226443357007DBA80 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		36DB32252664DAA7009AD3B5 /* down.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = down.mp3; sourceTree = "<group>"; };
+		36DB32262664DAA7009AD3B5 /* up.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = up.mp3; sourceTree = "<group>"; };
 		37D581A9E615CF69846FDE4A /* Pods-Trammetje.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trammetje.release.xcconfig"; path = "Target Support Files/Pods-Trammetje/Pods-Trammetje.release.xcconfig"; sourceTree = "<group>"; };
 		54AF64BF39A9EC9EBEFA5B91 /* Pods-Trammetje.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trammetje.debug.xcconfig"; path = "Target Support Files/Pods-Trammetje/Pods-Trammetje.debug.xcconfig"; sourceTree = "<group>"; };
 		7C039571703C4E2FF365DBD9 /* Pods-Trammetje-TrammetjeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trammetje-TrammetjeTests.debug.xcconfig"; path = "Target Support Files/Pods-Trammetje-TrammetjeTests/Pods-Trammetje-TrammetjeTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				36DB32252664DAA7009AD3B5 /* down.mp3 */,
+				36DB32262664DAA7009AD3B5 /* up.mp3 */,
 				367BE17226443357007DBA80 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* Trammetje */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -282,7 +288,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				36DB32282664DAA7009AD3B5 /* up.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				36DB32272664DAA7009AD3B5 /* down.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

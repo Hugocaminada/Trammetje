@@ -61,6 +61,8 @@ const ModularButton = ({
     height={height}
     backgroundColor={backgroundColor}>
     <ButtonText
+      numberOfLines={1}
+      adjustsFontSizeToFit
       textColor={textColor}
       textAlign={textAlign}
       minWidth={minWidth}

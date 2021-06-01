@@ -26,7 +26,7 @@ type AnswerProps = {
 
 const Answer = styled.TouchableOpacity<AnswerProps>`
   width: 50%;
-  height: 60px;
+  min-height: 60px;
   ${props =>
     props.side === 'left'
       ? 'border-bottom-left-radius: 15px;'
@@ -35,7 +35,7 @@ const Answer = styled.TouchableOpacity<AnswerProps>`
       : null}
   justify-content: center;
   align-items: center;
-  padding-horizontal: 10px;
+  padding-horizontal: 5px;
 `
 
 const AnswerText = styled.Text<AnswerProps>`
@@ -72,7 +72,7 @@ const DirectionsCard = () => {
 
   const styles = useSpring<{style?: StyleSheet}>({
     position: 'absolute',
-    height: 60,
+    height: '100%',
     backgroundColor: colors.lightGreen,
     width: '50%',
     left: travelDirection ? '50%' : '0%',
@@ -93,7 +93,10 @@ const DirectionsCard = () => {
           selected={travelDirection === TravelDirection.Left}
           side="left"
           onPress={() => changeTravelDirection(TravelDirection.Left)}>
-          <AnswerText selected={travelDirection === TravelDirection.Left}>
+          <AnswerText
+            selected={travelDirection === TravelDirection.Left}
+            adjustsFontSizeToFit
+            numberOfLines={2}>
             {selectedLine.directions[0]}
           </AnswerText>
         </Answer>
@@ -101,7 +104,10 @@ const DirectionsCard = () => {
           selected={travelDirection === TravelDirection.Right}
           side="right"
           onPress={() => changeTravelDirection(TravelDirection.Right)}>
-          <AnswerText selected={travelDirection === TravelDirection.Right}>
+          <AnswerText
+            selected={travelDirection === TravelDirection.Right}
+            adjustsFontSizeToFit
+            numberOfLines={2}>
             {selectedLine.directions[1]}
           </AnswerText>
         </Answer>

@@ -55,15 +55,16 @@ const DisclaimerContainer = styled.View`
 
 type Props = {
   setDestionationStopSelected: Dispatch<SetStateAction<boolean>>
+  stopsSortedByDirection?: Stop[]
 }
 
-const DestinationStopSelector = ({setDestionationStopSelected}: Props) => {
+const DestinationStopSelector = ({
+  setDestionationStopSelected,
+  stopsSortedByDirection,
+}: Props) => {
   const dispatch = useAppDispatch()
   const [destinationStop, setDestinationStop] = useState<undefined | Stop>()
-  const stops = useAppSelector(state => state.journey.line?.stops)
-  const reversedStops = stops?.slice().reverse()
   const departureStop = useAppSelector(state => state.journey.departureStop)
-  const relevantStops = departureStop?.direction ? stops : reversedStops
 
   const onPress = (stop: Stop) => {
     setDestinationStop(stop)
@@ -76,7 +77,7 @@ const DestinationStopSelector = ({setDestionationStopSelected}: Props) => {
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
-        data={relevantStops}
+        data={stopsSortedByDirection}
         keyExtractor={item => item.slug.current}
         renderItem={({item}) => (
           <Item onPress={() => onPress(item)}>

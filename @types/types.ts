@@ -1,25 +1,35 @@
 export type WithChildren<T = {}> = T & {children: React.ReactNode}
 
+export type Location = {
+  name: string
+  slug: {
+    current: string,
+  }
+  distance: number
+  coordinates: {
+    lat: number
+    lon: number
+  }
+}
+
+export type Stop = Location & {
+  lines: Line[]
+  direction: number
+}
+
+export type Sight = Location & {
+  description: string
+  picture: string
+  closestStop: Stop
+}
+
 export type Line = {
   number: number
   slug: {
     current: string,
   }
-  directions: Array<string>
+  directions: string[]
   color: string
-  stops: Array<Stop>
+  stops: Stop[]
+  sights: Sight[]
 }
-
-export type Stop = {
-    name: string
-    slug: {
-      current: string,
-    }
-    distance: number
-    coordinates: {
-      lat: number
-      lon: number
-    }
-    lines: Line[]
-    direction: number
-  }

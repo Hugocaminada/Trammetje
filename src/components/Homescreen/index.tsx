@@ -10,13 +10,14 @@ import PhotoHeader from '../PhotoHeader'
 import ModularButton from '../ModularButton'
 import StopSelectionModal from './DepartureStopSelectionModal'
 import sanityClient from '../../client'
-import {sortStopsByDistance} from '../../methodes'
+import {sortLocationsByDistance} from '../../methodes'
 import type {Stop} from '../../../@types/types'
 import DirectionsCard from '../Cards/DirectionsCard'
 import {useGeolocation} from '../../app/hooks/useGeolocation'
 import StatisticsCard from '../Cards/StatisticsCard'
 import DestinationStopSelector from '../DestinationStopSelector'
 import {DisclaimerText} from '../TextTypes'
+import SightsCard from '../Cards/SightsCard'
 
 const windowHeight = Dimensions.get('window').height
 
@@ -43,26 +44,24 @@ const CardsContainer = styled.View`
 `
 
 const Homescreen = () => {
-  const [
-    stopSelectionModalVisible,
-    setStopSelectionModalVisible,
-  ] = useState<boolean>(false)
+  const [stopSelectionModalVisible, setStopSelectionModalVisible] = useState<boolean>(false)
   const [stopsByDistance, setStopsByDistance] = useState<Stop[]>([])
   const [buttonText, setButtonText] = useState<string>('Kies je instaphalte')
-  const [departureStopSelected, setDepartureStopSelected] = useState<boolean>(
-    false,
-  )
-  const [
-    destinationStopSelected,
-    setDestinationStopSelected,
-  ] = useState<boolean>(false)
+  const [departureStopSelected, setDepartureStopSelected] = useState<boolean>(false)
+  const [destinationStopSelected, setDestinationStopSelected] = useState<boolean>(false)
   const [journeyStarted, setJourneyStarted] = useState<boolean>(false)
+
   const [error, position] = useGeolocation()
-
   const dispatch = useAppDispatch()
-  const departureStop = useAppSelector(state => state.journey.departureStop)
 
-  const {data, isLoading} = useQuery<Stop[]>('stops', async () =>
+  const departureStop = useAppSelector(state => state.journey.departureStop)
+  const line = useAppSelector(state => state.journey.line)
+
+  const reversedStops = line?.stops?.slice().reverse()
+  const stopsSortedByDirection = departureStop?.direction ? line?.stops : reversedStops
+
+
+  const {data, isLoading} = useQuery<Stop[]>('stops', async () => (
     sanityClient.fetch(
       `*[_type == "stop"]{
         name,
@@ -79,14 +78,16 @@ const Homescreen = () => {
           slug,
         },
     }`,
-    ),
-  )
+    )
+  ))
 
   useEffect(() => {
-    if (data && position) {
-      setStopsByDistance(sortStopsByDistance(position, data))
+    // This effect triggers on every location update
+    if (data && position && !journeyStarted) {
+      setStopsByDistance(sortLocationsByDistance(position, data))
+      console.log('zoek dichtsbijzijnde stop')
     }
-  }, [data, position])
+  }, [data, position, journeyStarted])
 
   const setDepartureStop = (stop: Stop) => {
     setButtonText('Stap In')
@@ -159,9 +160,13 @@ const Homescreen = () => {
               <DirectionsCard />
             )}
             {journeyStarted && (
-              <DestinationStopSelector
-                setDestionationStopSelected={setDestinationStopSelected}
-              />
+              <>
+                <DestinationStopSelector
+                  stopsSortedByDirection={stopsSortedByDirection}
+                  setDestionationStopSelected={setDestinationStopSelected}
+                />
+                <SightsCard position={position} stopsSortedByDirection={stopsSortedByDirection}/>
+              </>
             )}
             <StatisticsCard />
           </CardsContainer>

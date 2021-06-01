@@ -6,7 +6,7 @@ export default {
         {
             name: 'number',
             title: 'Number',
-            type: 'number',
+            type: 'string',
         },
         {
             name: 'directions',
@@ -24,7 +24,13 @@ export default {
             title: 'Stops',
             type: 'array',
             of: [{type: 'reference', to: {type: 'stop'}}],
-          },
+        },
+        {
+            name: 'sights',
+            title: 'Sights',
+            type: 'array',
+            of: [{type: 'reference', to: {type: 'sight'}}],
+        },
     ],
     preview: {
         select: {

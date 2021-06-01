@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Entypo'
 
 const MainContainer = styled.View`
   padding-horizontal: 20px;
+  padding-top: 10px;
 `
 
 const HeaderContainer = styled.Pressable`

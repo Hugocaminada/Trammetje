@@ -20,8 +20,8 @@ export const userSlice = createSlice({
         addTravelledJourney: (state) => {
             state.travelledJourneys += 1
         },
-        addSeenAttraction: (state) => {
-            state.seenAttractions += 1
+        addSeenAttraction: (state, action: PayloadAction<number>) => {
+            state.seenAttractions += action.payload
         },
         addSavedCo2: (state, action: PayloadAction<number>) => {
             state.savedCo2 += action.payload
@@ -31,7 +31,7 @@ export const userSlice = createSlice({
 
 export const {addTravelledJourney, addSeenAttraction, addSavedCo2} = userSlice.actions
 
-export const selectTravelledJourney = (state: RootState) => state.user.travelledJourneys
+export const selectTravelledJourneys = (state: RootState) => state.user.travelledJourneys
 export const selectSeenAttractions = (state: RootState) => state.user.seenAttractions
 export const selectSavedCo2 = (state: RootState) => state.user.savedCo2
 

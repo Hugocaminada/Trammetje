@@ -5,6 +5,7 @@ import styled from 'styled-components/native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import {useAppDispatch, useAppSelector} from '../app/hooks/redux'
 import {addDeparture, resetJourney} from '../slices/journeySlice'
+import {addTravelledJourney, addSeenAttraction, addSavedCo2} from '../slices/userSlice'
 import {colors} from '../constants'
 import PhotoHeader from './PhotoHeader'
 import ModularButton from './ModularButton'
@@ -106,6 +107,9 @@ const Homescreen = () => {
     setDestinationStopSelected(false)
     setDepartureStopSelected(false)
     setButtonText('Kies je instaphalte')
+    dispatch(addTravelledJourney())
+    dispatch(addSeenAttraction(2))
+    dispatch(addSavedCo2(50))
     dispatch(resetJourney())
 
   }

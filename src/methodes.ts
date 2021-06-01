@@ -16,10 +16,11 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
 }
 
 export const sortLocationsByDistance = <T extends Location>(currentPos: GeolocationData, locations: T[]) => {
-  for (let i = 0; i < locations.length; i++) {
-    locations[i].distance = calculateDistance(currentPos.latitude, currentPos.longitude, locations[i].coordinates.lat, locations[i].coordinates.lon)
+  const tempLocations = locations
+  for (let i = 0; i < tempLocations.length; i++) {
+    tempLocations[i].distance = calculateDistance(currentPos.latitude, currentPos.longitude, tempLocations[i].coordinates.lat, tempLocations[i].coordinates.lon)
   }
-  return locations.sort((a, b) => a.distance - b.distance)
+  return tempLocations.sort((a, b) => a.distance - b.distance)
 }
 
 

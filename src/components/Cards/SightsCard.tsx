@@ -85,9 +85,7 @@ const SightsCard = ({position, stopsSortedByDirection}: Props) => {
         description,
       },
   }`)
-
   .then((data: Line[]) => {
-    console.log('search new sights')
     if (data[0].sights) {
       const sightsByDistance = data && sortLocationsByDistance(position, data[0].sights)
       const allSightsAhead = sightsByDistance?.filter(sight => {
@@ -98,7 +96,6 @@ const SightsCard = ({position, stopsSortedByDirection}: Props) => {
           }
         }
       })
-      console.log(allSightsAhead)
       setSightsAhead(allSightsAhead)
     } else {
       setSightsAhead([])

@@ -69,7 +69,6 @@ const DirectionsCard = () => {
           slug,
         },
       }`).then((data: Stop[]) => {
-        console.log(data)
         setLines(data[0].lines)
         setSelectedLine(data[0].lines[0])
       }).catch(console.error)

@@ -6,12 +6,14 @@ interface JourneyState {
     departureStop: Stop | undefined
     line: Line | undefined
     destinationStop: Stop | undefined
+    stopIndex: number
 }
 
 const initialState: JourneyState = {
     departureStop: undefined,
     line: undefined,
     destinationStop: undefined,
+    stopIndex: 0,
 }
 
 export const journeySlice = createSlice({
@@ -27,6 +29,12 @@ export const journeySlice = createSlice({
         addLine: (state, action) => {
             state.line = action.payload
         },
+        setStopIndex: (state, action) => {
+            state.stopIndex = action.payload
+        },
+        incrementStopIndex: (state) => {
+            state.stopIndex += 1
+        },
         removeDeparture: (state) => {
             state.departureStop = initialState.departureStop
         },
@@ -36,10 +44,13 @@ export const journeySlice = createSlice({
         removeLine: (state) => {
             state.line = initialState.line
         },
+        resetStopIndex: (state) => {
+            state.stopIndex = 0
+        },
     },
 })
 
-export const {addDeparture, addDestination, addLine, removeDeparture, removeDestination, removeLine} = journeySlice.actions
+export const {addDeparture, addDestination, addLine, setStopIndex, incrementStopIndex, removeDeparture, removeDestination, removeLine, resetStopIndex} = journeySlice.actions
 
 export const selectDeparture = (state: RootState) => state.journey.departureStop
 export const selectDestination = (state: RootState) => state.journey.destinationStop

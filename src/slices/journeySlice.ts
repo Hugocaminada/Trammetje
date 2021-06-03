@@ -47,11 +47,15 @@ export const journeySlice = createSlice({
         resetStopIndex: (state) => {
             state.stopIndex = 0
         },
+        resetJourney: (state) => {
+            state.line = initialState.line
+            state.departureStop = initialState.departureStop
+            state.destinationStop = initialState.destinationStop
+        },
     },
 })
 
-export const {addDeparture, addDestination, addLine, setStopIndex, incrementStopIndex, removeDeparture, removeDestination, removeLine, resetStopIndex} = journeySlice.actions
-
+export const {addDeparture, addDestination, addLine, setStopIndex, incrementStopIndex, removeDeparture, removeDestination, removeLine, resetStopIndex, resetJourney} = journeySlice.actions
 export const selectDeparture = (state: RootState) => state.journey.departureStop
 export const selectDestination = (state: RootState) => state.journey.destinationStop
 export const selectLine = (state: RootState) => state.journey.line

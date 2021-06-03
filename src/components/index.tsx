@@ -3,21 +3,23 @@ import {Modal, ScrollView, Dimensions, Pressable} from 'react-native'
 import {useQuery} from 'react-query'
 import styled from 'styled-components/native'
 import Spinner from 'react-native-loading-spinner-overlay'
-import {useAppDispatch, useAppSelector} from '../../app/hooks/redux'
-import {addDeparture} from '../../slices/journeySlice'
-import {colors} from '../../constants'
-import PhotoHeader from '../PhotoHeader'
-import ModularButton from '../ModularButton'
-import StopSelectionModal from './DepartureStopSelectionModal'
-import sanityClient from '../../client'
-import {sortLocationsByDistance} from '../../methodes'
-import type {Stop} from '../../../@types/types'
-import DirectionsCard from '../Cards/DirectionsCard'
-import {useGeolocation} from '../../app/hooks/useGeolocation'
-import StatisticsCard from '../Cards/StatisticsCard'
-import DestinationStopSelector from '../DestinationStopSelector'
-import {DisclaimerText} from '../TextTypes'
-import SightsCard from '../Cards/SightsCard'
+import {useAppDispatch, useAppSelector} from '../app/hooks/redux'
+import {addDeparture, resetJourney} from '../slices/journeySlice'
+import {addTravelledJourney, addSeenAttraction, addSavedCo2} from '../slices/userSlice'
+import {colors} from '../constants'
+import PhotoHeader from './PhotoHeader'
+import ModularButton from './ModularButton'
+import StopSelectionModal from './Modals/DepartureStopSelectionModal'
+import sanityClient from '../client'
+import {sortLocationsByDistance} from '../methodes'
+import type {Stop} from '../../@types/types'
+import DirectionsCard from './Cards/DirectionsCard'
+import {useGeolocation} from '../app/hooks/useGeolocation'
+import StatisticsCard from './Cards/StatisticsCard'
+import DestinationStopSelector from './DestinationStopSelector'
+import {DisclaimerText} from './TextTypes'
+import SightsCard from './Cards/SightsCard'
+import EndJourneyModal from './Modals/EndJourneyModal'
 
 const windowHeight = Dimensions.get('window').height
 
@@ -45,6 +47,7 @@ const CardsContainer = styled.View`
 
 const Homescreen = () => {
   const [stopSelectionModalVisible, setStopSelectionModalVisible] = useState<boolean>(false)
+  const [endJourneyModalVisible, setEndJourneyModalVisible] = useState<boolean>(false)
   const [stopsByDistance, setStopsByDistance] = useState<Stop[]>([])
   const [buttonText, setButtonText] = useState<string>('Kies je instaphalte')
   const [departureStopSelected, setDepartureStopSelected] = useState<boolean>(false)
@@ -78,7 +81,6 @@ const Homescreen = () => {
     // This effect triggers on every location update
     if (data && position && !journeyStarted) {
       setStopsByDistance(sortLocationsByDistance(position, data))
-      console.log('zoek dichtsbijzijnde stop')
     }
   }, [data, position, journeyStarted])
 
@@ -91,6 +93,18 @@ const Homescreen = () => {
   const startJourney = () => {
     setJourneyStarted(true)
     setButtonText('Stap uit')
+  }
+
+  const stopJourney = () => {
+    setJourneyStarted(false)
+    setDestinationStopSelected(false)
+    setDepartureStopSelected(false)
+    setButtonText('Kies je instaphalte')
+    dispatch(addTravelledJourney())
+    dispatch(addSeenAttraction(2))
+    dispatch(addSavedCo2(50))
+    dispatch(resetJourney())
+
   }
 
   if (error) {
@@ -118,6 +132,18 @@ const Homescreen = () => {
           setDepartureStop={setDepartureStop}
         />
       </Modal>
+      <Modal
+       animationType="slide"
+       visible={endJourneyModalVisible}
+       onRequestClose={() => {
+        setEndJourneyModalVisible(false)
+      }}
+      transparent={true}>
+         <EndJourneyModal
+          setModalVisible={setEndJourneyModalVisible}
+          stopJourney={stopJourney}
+         />
+         </Modal>
       <PhotoHeader />
       <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
         <Spacer height={windowHeight * 0.25} />
@@ -127,9 +153,11 @@ const Homescreen = () => {
               label={buttonText}
               backgroundColor={colors.red}
               onPress={() =>
-                departureStopSelected
-                  ? startJourney()
-                  : setStopSelectionModalVisible(true)
+                departureStopSelected && !journeyStarted
+                  ? startJourney() :
+                journeyStarted ?
+                  setEndJourneyModalVisible(true) :
+                  setStopSelectionModalVisible(true)
               }
             />
           </ButtonContainer>

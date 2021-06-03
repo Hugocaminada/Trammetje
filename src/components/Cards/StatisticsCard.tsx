@@ -36,11 +36,7 @@ const Circle = styled.View`
 `
 
 const StatisticsCard = () => {
-  const travelledJourneys = useAppSelector(
-    state => state.user.travelledJourneys,
-  )
-  const seenAttractions = useAppSelector(state => state.user.seenAttractions)
-  const savedCo2 = useAppSelector(state => state.user.savedCo2)
+  const user = useAppSelector(state => state.user)
 
   return (
     <Card title="Jouw Statistieken">
@@ -49,15 +45,20 @@ const StatisticsCard = () => {
           <Circle>
             <MaterialIcon name="tram" color={colors.white} size={25} />
           </Circle>
-          <MainText>{travelledJourneys} Ritten</MainText>
+          <MainText>
+            {user.travelledJourneys}{' '}
+            {user.travelledJourneys === 1
+                ? 'Rit'
+                : 'Ritten'}{' '}
+            </MainText>
         </RowContainer>
         <RowContainer>
           <Circle>
             <FontAwesomeIcon name="university" color={colors.white} size={20} />
           </Circle>
           <MainText numberOfLines={2} adjustsFontSizeToFit>
-            {seenAttractions}{' '}
-            {seenAttractions === 1
+            {user.seenAttractions}{' '}
+            {user.seenAttractions === 1
               ? 'Bezienswaardigheid'
               : 'Bezienswaardigheden'}{' '}
             gespot
@@ -67,7 +68,7 @@ const StatisticsCard = () => {
           <Circle>
             <FontAwesomeIcon name="tree" color={colors.white} size={20} />
           </Circle>
-          <MainText>{savedCo2} gram Co2 bespaard</MainText>
+          <MainText>{user.savedCo2} gram Co2 bespaard</MainText>
         </RowContainer>
       </MainContainer>
     </Card>

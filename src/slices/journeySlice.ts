@@ -3,15 +3,15 @@ import type { RootState } from '../app/store'
 import type { Stop, Line } from '../../@types/types'
 
 interface JourneyState {
-    departureStop: Stop | null
-    line: Line | null
-    destinationStop: Stop | null
+    departureStop: Stop | undefined
+    line: Line | undefined
+    destinationStop: Stop | undefined
 }
 
 const initialState: JourneyState = {
-    departureStop: null,
-    line: null,
-    destinationStop: null,
+    departureStop: undefined,
+    line: undefined,
+    destinationStop: undefined,
 }
 
 export const journeySlice = createSlice({

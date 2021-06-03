@@ -70,13 +70,6 @@ const Homescreen = () => {
           lat,
           lon,
         },
-        lines[]->{
-          stops[]->,
-          directions,
-          number,
-          color,
-          slug,
-        },
     }`,
     )
   ))

@@ -14,7 +14,7 @@ const MainContainer = styled.View`
 `
 
 type Props = {
-  lines: Line[] | undefined
+  lines?: Line[]
   onPress: Dispatch<SetStateAction<Line | undefined>>
 }
 

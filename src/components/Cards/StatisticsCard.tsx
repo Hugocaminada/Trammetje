@@ -8,7 +8,7 @@ import {colors} from '../../constants'
 
 const MainContainer = styled.View`
   justify-content: center;
-  padding: 20px;
+  padding-horizontal: 20px;
 `
 
 const MainText = styled.Text`

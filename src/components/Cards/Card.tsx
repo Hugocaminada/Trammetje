@@ -16,8 +16,7 @@ const Title = styled.Text<{centeredTitle?: boolean}>`
   font-size: 20px;
   font-weight: 700;
   color: ${colors.darkGray};
-  padding-bottom: 5px;
-  padding-top: 20px;
+  padding-vertical: 15px;
   padding-horizontal: 20px;
   width: 100%;
   text-align: ${props => (props.centeredTitle ? 'center' : 'left')};

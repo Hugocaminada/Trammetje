@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {useQuery} from 'react-query'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Sound from 'react-native-sound'
 import styled from 'styled-components/native'
@@ -38,6 +37,8 @@ const SightsCard = ({position, stopsSortedByDirection}: Props) => {
   const [audioTour, setAudioTour] = useState<boolean>(false)
 
   const departureStop = useAppSelector(state => state.journey.departureStop)
+  const line = useAppSelector(state => state.journey.line)
+
   const up = new Sound('up.mp3', Sound.MAIN_BUNDLE, error => {
     if (error) {
       console.log('failed to load sound', error)
@@ -70,39 +71,47 @@ const SightsCard = ({position, stopsSortedByDirection}: Props) => {
     }
   }
 
-  const {data} = useQuery<Line[]>('lines', async () =>
-    sanityClient.fetch(`*[_type == "line" && number == "1"]{
-        number,
-        sights[]->{
-          closestStop->,
-          coordinates{
-            lat,
-            lon,
-          },
-          name,
-          picture,
-          description,
+  useEffect(() => {
+    sanityClient.fetch(`*[_type == "line" && number == "${line?.number}"]{
+      number,
+      sights[]->{
+        closestStop->,
+        coordinates{
+          lat,
+          lon,
         },
-    }`),
-  )
+        name,
+        picture,
+        description,
+      },
+  }`)
+
+  .then((data: Line[]) => {
+    console.log('search new sights')
+    if (data[0].sights) {
+      const sightsByDistance = data && sortLocationsByDistance(position, data[0].sights)
+      const allSightsAhead = sightsByDistance?.filter(sight => {
+        for (var i = 0; i < stopsAhead.length; i++ ) {
+          // I tried to do `return stopsAhead[i].slug.current === sight.closestStop.slug.current` here but it doesn't work..?
+          if (stopsAhead[i].slug.current === sight.closestStop.slug.current) {
+            return true
+          }
+        }
+      })
+      console.log(allSightsAhead)
+      setSightsAhead(allSightsAhead)
+    } else {
+      setSightsAhead([])
+    }
+  })
+  .catch(console.error)
+  }, [line, position, stopsAhead])
 
   useEffect(() => {
     departureStop && stopsSortedByDirection && setStopsAhead(determainStopsAhead(departureStop, stopsSortedByDirection))
   }, [departureStop, stopsSortedByDirection])
 
-  useEffect(() => {
-    const sightsByDistance = data && sortLocationsByDistance(position, data[0].sights)
-    const allSightsAhead = sightsByDistance?.filter(sight => {
-      for (var i = 0; i < stopsAhead.length; i++ ) {
-        // I tried to do `return stopsAhead[i].slug.current === sight.closestStop.slug.current` here but it doesn't work..?
-        if (stopsAhead[i].slug.current === sight.closestStop.slug.current) {
-          return true
-        }
-      }
-    })
-
-    setSightsAhead(allSightsAhead)
-  }, [data, position, stopsAhead])
+  if (sightsAhead?.length === 0) {return <Card title="Je rijdt niet meer langs bezienswaardigheden" centeredTitle={true}/>}
 
   return (
     <Card title="Je rijdt langs:">

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {View} from 'react-native'
 import styled from 'styled-components/native'
 import {colors} from '../../constants'
@@ -7,7 +7,8 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks/redux'
 import {addDeparture} from '../../slices/journeySlice'
 import {useSpring, animated} from '@react-spring/native'
 import LinesSelector from '../LinesSelector'
-import type {Line} from '../../../@types/types'
+import sanityClient from '../../client'
+import type {Line, Stop} from '../../../@types/types'
 
 const AnimatedView = animated(View)
 
@@ -47,18 +48,32 @@ const AnswerText = styled.Text<AnswerProps>`
 const DirectionsCard = () => {
   const dispatch = useAppDispatch()
   const departureStop = useAppSelector(state => state.journey.departureStop)
+  const [lines, setLines] = useState<Line[]>([])
 
   enum TravelDirection {
     Left,
     Right,
   }
 
-  const [selectedLine, setSelectedLine] = useState<Line | undefined>(
-    departureStop?.lines[0],
-  )
-  const [travelDirection, setTravelDirection] = useState<TravelDirection>(
-    TravelDirection.Left,
-  )
+  const [selectedLine, setSelectedLine] = useState<Line | undefined>()
+  const [travelDirection, setTravelDirection] = useState<TravelDirection>(TravelDirection.Left)
+
+  useEffect(() => {
+    sanityClient.fetch(
+      `*[slug.current == "${departureStop?.slug.current}"]{
+        lines[]->{
+          stops[]->,
+          directions,
+          number,
+          color,
+          slug,
+        },
+      }`).then((data: Stop[]) => {
+        console.log(data)
+        setLines(data[0].lines)
+        setSelectedLine(data[0].lines[0])
+      }).catch(console.error)
+  }, [departureStop])
 
   const changeTravelDirection = (direction: number) => {
     setTravelDirection(direction)
@@ -86,7 +101,7 @@ const DirectionsCard = () => {
 
   return (
     <Card title="Welke tram neem je?" centeredTitle={true}>
-      <LinesSelector lines={departureStop?.lines} onPress={setSelectedLine} />
+      <LinesSelector lines={lines} onPress={setSelectedLine} />
       <AnswerContainer>
         <AnimatedView style={styles} />
         <Answer

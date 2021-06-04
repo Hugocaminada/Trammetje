@@ -4,14 +4,14 @@ import {useQuery} from 'react-query'
 import styled from 'styled-components/native'
 import Spinner from 'react-native-loading-spinner-overlay'
 import {useAppDispatch, useAppSelector} from '../app/hooks/redux'
-import {addDeparture, resetJourney} from '../slices/journeySlice'
+import {addDeparture, incrementStopIndex, resetJourney, setStopIndex} from '../slices/journeySlice'
 import {addTravelledJourney, addSeenAttraction, addSavedCo2} from '../slices/userSlice'
 import {colors} from '../constants'
 import PhotoHeader from './PhotoHeader'
 import ModularButton from './ModularButton'
 import StopSelectionModal from './Modals/DepartureStopSelectionModal'
 import sanityClient from '../client'
-import {sortLocationsByDistance} from '../methodes'
+import {calculateDistance, lookForStopIndex, sortLocationsByDistance} from '../methodes'
 import type {Stop} from '../../@types/types'
 import DirectionsCard from './Cards/DirectionsCard'
 import {useGeolocation} from '../app/hooks/useGeolocation'
@@ -59,10 +59,10 @@ const Homescreen = () => {
 
   const departureStop = useAppSelector(state => state.journey.departureStop)
   const line = useAppSelector(state => state.journey.line)
+  const stopIndex = useAppSelector(state => state.journey.stopIndex)
 
   const reversedStops = line?.stops?.slice().reverse()
   const stopsSortedByDirection = departureStop?.direction ? line?.stops : reversedStops
-
 
   const {data, isLoading} = useQuery<Stop[]>('stops', async () => (
     sanityClient.fetch(
@@ -77,12 +77,27 @@ const Homescreen = () => {
     )
   ))
 
+  // Effect updates when departure stop, departure line or current position changes
   useEffect(() => {
-    // This effect triggers on every location update
     if (data && position && !journeyStarted) {
       setStopsByDistance(sortLocationsByDistance(position, data))
     }
-  }, [data, position, journeyStarted])
+
+    // Look for distance from current position to next stop
+    if (stopsSortedByDirection && departureStop && journeyStarted) {
+      const currentStopIndex = lookForStopIndex(stopsSortedByDirection, stopsSortedByDirection[stopIndex])
+      const distance = calculateDistance(
+        stopsSortedByDirection[currentStopIndex + 1]?.coordinates.lat,
+        stopsSortedByDirection[currentStopIndex + 1]?.coordinates.lon,
+        position.latitude,
+        position.longitude
+      )
+      console.log(distance.toFixed(2) + 'km tot volgende halte:' + stopsSortedByDirection[currentStopIndex + 1]?.name)
+      if (distance <= 0.1) {
+        dispatch(incrementStopIndex())
+      }
+    }
+  }, [data, departureStop, dispatch, journeyStarted, position, stopIndex, stopsSortedByDirection])
 
   const setDepartureStop = (stop: Stop) => {
     setButtonText('Stap In')
@@ -93,6 +108,8 @@ const Homescreen = () => {
   const startJourney = () => {
     setJourneyStarted(true)
     setButtonText('Stap uit')
+    const departureStopIndex = lookForStopIndex(stopsSortedByDirection, departureStop)
+    dispatch(setStopIndex(departureStopIndex))
   }
 
   const stopJourney = () => {
@@ -177,8 +194,8 @@ const Homescreen = () => {
                 </Pressable>
               </>
             )}
-            {departureStopSelected && !destinationStopSelected && (
-              <DirectionsCard />
+            {departureStopSelected && !destinationStopSelected && !journeyStarted && (
+              <DirectionsCard journeyStarted={journeyStarted} />
             )}
             {journeyStarted && (
               <>

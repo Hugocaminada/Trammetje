@@ -45,7 +45,11 @@ const AnswerText = styled.Text<AnswerProps>`
   text-align: center;
 `
 
-const DirectionsCard = () => {
+type Props = {
+  journeyStarted: boolean
+}
+
+const DirectionsCard = ({journeyStarted} : Props)  => {
   const dispatch = useAppDispatch()
   const departureStop = useAppSelector(state => state.journey.departureStop)
   const [lines, setLines] = useState<Line[]>([])
@@ -100,7 +104,7 @@ const DirectionsCard = () => {
 
   return (
     <Card title="Welke tram neem je?" centeredTitle={true}>
-      <LinesSelector lines={lines} onPress={setSelectedLine} />
+      {!journeyStarted && <LinesSelector lines={lines} onPress={setSelectedLine}/>}
       <AnswerContainer>
         <AnimatedView style={styles} />
         <Answer

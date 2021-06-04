@@ -3,7 +3,7 @@ import { GeolocationData } from './app/hooks/useGeolocation'
 
 const Deg2Rad = (deg: number) => deg * Math.PI / 180
 
-const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+export const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
   lat1 = Deg2Rad(lat1)
   lat2 = Deg2Rad(lat2)
   lon1 = Deg2Rad(lon1)
@@ -23,6 +23,15 @@ export const sortLocationsByDistance = <T extends Location>(currentPos: Geolocat
   return tempLocations.sort((a, b) => a.distance - b.distance)
 }
 
+export const lookForStopIndex = (stops: Stop[] | undefined, stopToFindIndexFor: Stop | undefined) : number => {
+  let DepartureStopIndex = 0
+  stops?.map((stop, index) => {
+    if (stop.slug.current === stopToFindIndexFor?.slug.current) {
+      DepartureStopIndex = index
+    }
+  })
+  return DepartureStopIndex
+}
 
 export const determainStopsAhead = (closestStop: Stop, stopsList: Stop[]): Stop[] => {
   let stopsAhead: Stop[] = []

@@ -64,7 +64,7 @@ const DestinationStopSelector = ({
 }: Props) => {
   const dispatch = useAppDispatch()
   const [destinationStop, setDestinationStop] = useState<undefined | Stop>()
-  const departureStop = useAppSelector(state => state.journey.departureStop)
+  const stopIndex = useAppSelector(state => state.journey.stopIndex)
 
   const onPress = (stop: Stop) => {
     setDestinationStop(stop)
@@ -79,7 +79,11 @@ const DestinationStopSelector = ({
         showsHorizontalScrollIndicator={false}
         data={stopsSortedByDirection}
         keyExtractor={item => item.slug.current}
-        renderItem={({item}) => (
+        initialScrollIndex={stopIndex}
+        getItemLayout={(data, index) => (
+          {length: 125, offset: 125 * index, index}
+        )}
+        renderItem={({item, index}) => (
           <Item onPress={() => onPress(item)}>
             <Name numberOfLines={2}>{item.name}</Name>
             <LineContainer>
@@ -87,7 +91,7 @@ const DestinationStopSelector = ({
                 selected={item.slug.current === destinationStop?.slug.current}
               />
               <YellowLine />
-              {item.slug.current === departureStop?.slug.current && (
+              {index === stopIndex && (
                 <Arrow name="right" size={50} />
               )}
             </LineContainer>

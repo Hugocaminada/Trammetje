@@ -51,6 +51,7 @@ export const journeySlice = createSlice({
             state.line = initialState.line
             state.departureStop = initialState.departureStop
             state.destinationStop = initialState.destinationStop
+            state.stopIndex = 0
         },
     },
 })

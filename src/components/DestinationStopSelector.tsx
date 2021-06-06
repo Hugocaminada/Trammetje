@@ -1,4 +1,4 @@
-import React, {SetStateAction, Dispatch, useState} from 'react'
+import React, {SetStateAction, Dispatch, useState, useEffect} from 'react'
 import {FlatList} from 'react-native'
 import styled from 'styled-components/native'
 import {colors} from '../constants'
@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import {addDestination} from '../slices/journeySlice'
 import {DisclaimerText} from './TextTypes'
 import type {Stop} from '../../@types/types'
+import { lookForStopIndex } from '../methodes'
 
 const Item = styled.Pressable`
   margin-bottom: 20px;
@@ -43,9 +44,9 @@ const YellowLine = styled.Text`
   width: 110px;
   height: 10px;
 `
-const Arrow = styled(Icon)`
+const Arrow = styled(Icon)<{left: number}>`
   position: absolute;
-  left: 40px;
+  left: ${props => props.left}px;
 `
 
 const DisclaimerContainer = styled.View`
@@ -56,21 +57,53 @@ const DisclaimerContainer = styled.View`
 type Props = {
   setDestionationStopSelected: Dispatch<SetStateAction<boolean>>
   stopsSortedByDirection?: Stop[]
+  moveToNextStop: () => void
+  stopJourney: () => void
 }
 
 const DestinationStopSelector = ({
   setDestionationStopSelected,
   stopsSortedByDirection,
+  moveToNextStop,
+  stopJourney,
 }: Props) => {
   const dispatch = useAppDispatch()
   const [destinationStop, setDestinationStop] = useState<undefined | Stop>()
   const stopIndex = useAppSelector(state => state.journey.stopIndex)
+  let destinationStopIndex = 100
+
+  let [arrowPos, setArrowPos] = useState<number>(-12)
+
+  if (destinationStop) {
+    destinationStopIndex = lookForStopIndex(stopsSortedByDirection, destinationStop)
+  }
 
   const onPress = (stop: Stop) => {
     setDestinationStop(stop)
     setDestionationStopSelected(true)
     dispatch(addDestination(stop))
   }
+
+  const moveArrow = () => {
+    if (arrowPos < 90 && destinationStopIndex > stopIndex) {
+      setArrowPos(arrowPos++)
+      setTimeout(moveArrow, 100)
+    } else if (destinationStopIndex > stopIndex) {
+      // ONLY FOR TESTING WE AUTOMATICALLY MOVE TO NEXT STOP WHEN ANIMATION REACHES NEXTSTOP
+      setTimeout(() => {
+        setArrowPos(-12)
+        moveToNextStop()
+      }, 1000)
+    } else {
+      setArrowPos(-12)
+      stopJourney()
+    }
+  }
+
+  useEffect(() => {
+    moveArrow()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stopIndex])
 
   return (
     <>
@@ -92,7 +125,7 @@ const DestinationStopSelector = ({
               />
               <YellowLine />
               {index === stopIndex && (
-                <Arrow name="right" size={50} />
+                <Arrow name="right" size={50} left={arrowPos} />
               )}
             </LineContainer>
           </Item>

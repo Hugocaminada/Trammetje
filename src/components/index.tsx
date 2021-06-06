@@ -97,7 +97,8 @@ const Homescreen = () => {
         dispatch(incrementStopIndex())
       }
     }
-  }, [data, departureStop, dispatch, journeyStarted, position, stopIndex, stopsSortedByDirection])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, departureStop, journeyStarted, position, stopIndex, stopsSortedByDirection])
 
   const setDepartureStop = (stop: Stop) => {
     setButtonText('Stap In')
@@ -202,6 +203,8 @@ const Homescreen = () => {
                 <DestinationStopSelector
                   stopsSortedByDirection={stopsSortedByDirection}
                   setDestionationStopSelected={setDestinationStopSelected}
+                  moveToNextStop={() => dispatch(incrementStopIndex())}
+                  stopJourney={() => setEndJourneyModalVisible(true)}
                 />
                 <SightsCard position={position} stopsSortedByDirection={stopsSortedByDirection}/>
               </>

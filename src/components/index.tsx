@@ -14,7 +14,7 @@ import sanityClient from '../client'
 import {calculateDistance, lookForStopIndex, sortLocationsByDistance} from '../methodes'
 import type {Stop} from '../../@types/types'
 import DirectionsCard from './Cards/DirectionsCard'
-import {useGeolocation} from '../app/hooks/useGeolocation'
+// import {useGeolocation} from '../app/hooks/useGeolocation'
 import StatisticsCard from './Cards/StatisticsCard'
 import DestinationStopSelector from './DestinationStopSelector'
 import {DisclaimerText} from './TextTypes'
@@ -54,7 +54,12 @@ const Homescreen = () => {
   const [destinationStopSelected, setDestinationStopSelected] = useState<boolean>(false)
   const [journeyStarted, setJourneyStarted] = useState<boolean>(false)
 
-  const [error, position] = useGeolocation()
+  // const [error, position] = useGeolocation()
+
+  // use pre-defined position at DEN HAAG HS for testing purpuses.
+  const position = {latitude: 52.0701530527062,longitude: 4.32175356255003}
+  const error = ''
+
   const dispatch = useAppDispatch()
 
   const departureStop = useAppSelector(state => state.journey.departureStop)
@@ -122,7 +127,6 @@ const Homescreen = () => {
     dispatch(addSeenAttraction(2))
     dispatch(addSavedCo2(50))
     dispatch(resetJourney())
-
   }
 
   if (error) {

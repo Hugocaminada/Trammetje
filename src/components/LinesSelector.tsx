@@ -28,10 +28,6 @@ const LinesSelector = ({lines, onPress}: Props) => {
     setSelectedLineIndex(index)
   }
 
-  useEffect(() => {
-    lines && dispatch(addLine({...lines[0]}))
-  }, [dispatch, lines])
-
   return (
     <MainContainer>
       <FlatList

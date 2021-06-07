@@ -4,18 +4,19 @@ import styled from 'styled-components/native'
 import {colors} from '../../constants'
 import Card from './Card'
 import {useAppDispatch, useAppSelector} from '../../app/hooks/redux'
-import {addDeparture} from '../../slices/journeySlice'
+import {addDeparture, addLine} from '../../slices/journeySlice'
 import {useSpring, animated} from '@react-spring/native'
 import LinesSelector from '../LinesSelector'
 import sanityClient from '../../client'
 import type {Line, Stop} from '../../../@types/types'
+import { DisclaimerText } from '../TextTypes'
 
 const AnimatedView = animated(View)
 
 const AnswerContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 5px;
   border-top-width: 0.5px;
   border-color: ${colors.gray};
 `
@@ -61,6 +62,7 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
 
   const [selectedLine, setSelectedLine] = useState<Line | undefined>()
   const [travelDirection, setTravelDirection] = useState<TravelDirection>(TravelDirection.Left)
+  const line = useAppSelector(state => state.journey.line)
 
   useEffect(() => {
     sanityClient.fetch(
@@ -78,14 +80,20 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
       }).catch(console.error)
   }, [departureStop])
 
+  useEffect(() => {
+    if (!line){
+      dispatch(addLine(selectedLine))
+    }
+  }, [line, selectedLine, dispatch])
+
   const changeTravelDirection = (direction: number) => {
-    setTravelDirection(direction)
     dispatch(
       addDeparture({
         ...departureStop,
         direction,
       }),
     )
+    setTravelDirection(direction)
   }
 
   const styles = useSpring<{style?: StyleSheet}>({
@@ -105,6 +113,7 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
   return (
     <Card title="Welke tram neem je?" centeredTitle={true}>
       {!journeyStarted && <LinesSelector lines={lines} onPress={setSelectedLine}/>}
+      <DisclaimerText fontWeight={300}>Richting:</DisclaimerText>
       <AnswerContainer>
         <AnimatedView style={styles} />
         <Answer
@@ -115,7 +124,7 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
             selected={travelDirection === TravelDirection.Left}
             adjustsFontSizeToFit
             numberOfLines={2}>
-            {selectedLine.directions[0]}
+            {line?.directions[0]}
           </AnswerText>
         </Answer>
         <Answer
@@ -126,7 +135,7 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
             selected={travelDirection === TravelDirection.Right}
             adjustsFontSizeToFit
             numberOfLines={2}>
-            {selectedLine.directions[1]}
+            {line?.directions[1]}
           </AnswerText>
         </Answer>
       </AnswerContainer>

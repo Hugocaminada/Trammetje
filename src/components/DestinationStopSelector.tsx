@@ -153,8 +153,8 @@ const DestinationStopSelector = ({
         </>
       ) : (
         <DisclaimerText fontWeight={200}>
-          Tik op de halte waar je wil uitstappen om {'\n'} een herinnering te
-          krijgen
+          Tik op de halte waar je wil uitstappen om{'\n'}
+          een herinnering te krijgen
         </DisclaimerText>
       )}
     </>

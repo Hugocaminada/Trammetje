@@ -91,14 +91,14 @@ const Homescreen = () => {
     // Look for distance from current position to next stop
     if (stopsSortedByDirection && departureStop && journeyStarted) {
       const currentStopIndex = lookForStopIndex(stopsSortedByDirection, stopsSortedByDirection[stopIndex])
-      const distance = calculateDistance(
+      const distanceToNextStop = calculateDistance(
         stopsSortedByDirection[currentStopIndex + 1]?.coordinates.lat,
         stopsSortedByDirection[currentStopIndex + 1]?.coordinates.lon,
         position.latitude,
         position.longitude
       )
-      console.log(distance.toFixed(2) + 'km tot volgende halte:' + stopsSortedByDirection[currentStopIndex + 1]?.name)
-      if (distance <= 0.1) {
+      console.log(distanceToNextStop.toFixed(2) + 'km tot volgende halte:' + stopsSortedByDirection[currentStopIndex + 1]?.name)
+      if (distanceToNextStop <= 0.1) {
         dispatch(incrementStopIndex())
       }
     }
@@ -193,7 +193,7 @@ const Homescreen = () => {
                       {departureStop?.name}
                     </DisclaimerText>
                   </DisclaimerText>
-                  <DisclaimerText fontWeight={200}>
+                  <DisclaimerText fontWeight={300} underline>
                     Kies andere instaphalte
                   </DisclaimerText>
                 </Pressable>

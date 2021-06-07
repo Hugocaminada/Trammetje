@@ -151,18 +151,19 @@ const Homescreen = () => {
         />
       </Modal>
       <Modal
-       animationType="slide"
-       visible={endJourneyModalVisible}
-       onRequestClose={() => {
-        setEndJourneyModalVisible(false)
-      }}
-      transparent={true}>
-         <EndJourneyModal
+        animationType="slide"
+        visible={endJourneyModalVisible}
+        transparent={true}
+        onRequestClose={() => {
+          setEndJourneyModalVisible(false)
+        }}
+      >
+        <EndJourneyModal
           setModalVisible={setEndJourneyModalVisible}
           stopJourney={stopJourney}
-         />
-         </Modal>
-      <PhotoHeader />
+        />
+      </Modal>
+      <PhotoHeader/>
       <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
         <Spacer height={windowHeight * 0.25} />
         <MainContainer>
@@ -171,9 +172,8 @@ const Homescreen = () => {
               label={buttonText}
               backgroundColor={colors.red}
               onPress={() =>
-                departureStopSelected && !journeyStarted
-                  ? startJourney() :
-                journeyStarted ?
+                departureStopSelected && !journeyStarted ?
+                  startJourney() : journeyStarted ?
                   setEndJourneyModalVisible(true) :
                   setStopSelectionModalVisible(true)
               }
@@ -181,19 +181,17 @@ const Homescreen = () => {
           </ButtonContainer>
           <CardsContainer>
             {departureStopSelected && !journeyStarted && (
-              <>
-                <Pressable onPress={() => setStopSelectionModalVisible(true)}>
-                  <DisclaimerText fontWeight={400}>
-                    Instaphalte:{' '}
-                    <DisclaimerText fontWeight={500}>
-                      {departureStop?.name}
-                    </DisclaimerText>
+              <Pressable onPress={() => setStopSelectionModalVisible(true)}>
+                <DisclaimerText fontWeight={400}>
+                  Instaphalte:{' '}
+                  <DisclaimerText fontWeight={500}>
+                    {departureStop?.name}
                   </DisclaimerText>
-                  <DisclaimerText fontWeight={300} underline>
-                    Kies andere instaphalte
-                  </DisclaimerText>
-                </Pressable>
-              </>
+                </DisclaimerText>
+                <DisclaimerText fontWeight={300} underline>
+                  Kies andere instaphalte
+                </DisclaimerText>
+              </Pressable>
             )}
             {departureStopSelected && !destinationStopSelected && !journeyStarted && (
               <DirectionsCard journeyStarted={journeyStarted} />
@@ -209,7 +207,7 @@ const Homescreen = () => {
                 <SightsCard position={position} stopsSortedByDirection={stopsSortedByDirection}/>
               </>
             )}
-            <StatisticsCard />
+            <StatisticsCard/>
           </CardsContainer>
         </MainContainer>
       </ScrollView>

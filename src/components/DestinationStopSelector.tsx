@@ -124,9 +124,7 @@ const DestinationStopSelector = ({
           <Item onPress={() => onPress(item, index)} disabled={index <= stopIndex}>
             <Name numberOfLines={2}>{item.name}</Name>
             <LineContainer>
-              <Circle
-                selected={item.slug.current === destinationStop?.slug.current}
-              />
+              <Circle selected={item.slug.current === destinationStop?.slug.current}/>
               <Line color={index <= stopIndex ? colors.gray : colors.yellow}/>
               {index === stopIndex && (
                 <ArrowContainer left={arrowPos}>
@@ -149,7 +147,6 @@ const DestinationStopSelector = ({
             <DisclaimerText fontWeight={400}>{((destinationStopIndex - stopIndex) * 2).toFixed()} min / </DisclaimerText>
             <DisclaimerText fontWeight={400}>{destinationStopIndex - stopIndex} {destinationStopIndex - stopIndex === 1 ? 'halte' : 'haltes' }</DisclaimerText>
           </DisclaimerContainer>
-
         </>
       ) : (
         <DisclaimerText fontWeight={200}>

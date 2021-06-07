@@ -115,11 +115,11 @@ const SightsCard = ({position, stopsSortedByDirection}: Props) => {
     <Card title="Je rijdt langs:">
       <AudioTour onPress={handlePress}>
         <AudioText>{audioTour ? 'Stop' : 'Start'} Audio Tour</AudioText>
-      <Icon
-        name={audioTour ? 'headphones' : 'headphones-off'}
-        size={20}
-        color={colors.darkGray}
-      />
+        <Icon
+          name={audioTour ? 'headphones' : 'headphones-off'}
+          size={20}
+          color={colors.darkGray}
+        />
       </AudioTour>
       {sightsAhead?.map((sight, index) => (
         <SightItem sight={sight} key={index} index={index} />

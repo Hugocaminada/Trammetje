@@ -58,51 +58,51 @@ const EndJourneyModal = ({setModalVisible, stopJourney}: Props) => {
 
   return (
     <Modal
-        header="Bevestig uitstappen"
-        subHeader="Weet je zeker dat je hier wil uitstappen?"
-        setModalVisible={setModalVisible}
+      header="Bevestig uitstappen"
+      subHeader="Weet je zeker dat je hier wil uitstappen?"
+      setModalVisible={setModalVisible}
     >
-       <MainContainer>
-        <RowContainer>
+      <MainContainer>
+          <RowContainer>
             <Circle>
-                <MaterialIcon name="tram" color={colors.white} size={25} />
+              <MaterialIcon name="tram" color={colors.white} size={25} />
             </Circle>
             <MainText>
-                {user.travelledJourneys}{' '}
-                <GreenText>+1</GreenText>{' '}
-                {user.travelledJourneys === 1
-                ? 'Rit'
-                : 'Ritten'}{' '}
+              {user.travelledJourneys}{' '}
+              <GreenText>+1</GreenText>{' '}
+              {user.travelledJourneys === 1
+              ? 'Rit'
+              : 'Ritten'}
             </MainText>
-            </RowContainer>
-            <RowContainer>
+          </RowContainer>
+          <RowContainer>
             <Circle>
-                <FontAwesomeIcon name="university" color={colors.white} size={20} />
+              <FontAwesomeIcon name="university" color={colors.white} size={20} />
             </Circle>
             <MainText>
-                {user.seenAttractions}{' '}
-                <GreenText>+2</GreenText>{' '}
-                {user.seenAttractions === 1
-                ? 'Bezienswaardigheid'
-                : 'Bezienswaardigheden'}{' '}
-                gespot
+              {user.seenAttractions}{' '}
+              <GreenText>+2</GreenText>{' '}
+              {user.seenAttractions === 1
+              ? 'Bezienswaardigheid'
+              : 'Bezienswaardigheden'}{' '}
+              gespot
             </MainText>
-            </RowContainer>
-            <RowContainer>
+          </RowContainer>
+          <RowContainer>
             <Circle>
-                <FontAwesomeIcon name="tree" color={colors.white} size={20} />
+              <FontAwesomeIcon name="tree" color={colors.white} size={20} />
             </Circle>
             <MainText>{user.savedCo2} <GreenText>+50</GreenText> gram Co2 bespaard</MainText>
-            </RowContainer>
-            <ModularButton
-                backgroundColor={colors.red}
-                label="Stap uit"
-                onPress={() => {
-                    stopJourney()
-                    setModalVisible(false)
-                }}
-            />
-       </MainContainer>
+          </RowContainer>
+          <ModularButton
+            backgroundColor={colors.red}
+            label="Stap uit"
+            onPress={() => {
+                stopJourney()
+                setModalVisible(false)
+            }}
+          />
+      </MainContainer>
     </Modal>
   )
 }

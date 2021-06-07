@@ -9,13 +9,14 @@ import {useSpring, animated} from '@react-spring/native'
 import LinesSelector from '../LinesSelector'
 import sanityClient from '../../client'
 import type {Line, Stop} from '../../../@types/types'
+import { DisclaimerText } from '../TextTypes'
 
 const AnimatedView = animated(View)
 
 const AnswerContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 5px;
   border-top-width: 0.5px;
   border-color: ${colors.gray};
 `
@@ -63,7 +64,6 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
   const [travelDirection, setTravelDirection] = useState<TravelDirection>(TravelDirection.Left)
   const line = useAppSelector(state => state.journey.line)
 
-
   useEffect(() => {
     sanityClient.fetch(
       `*[slug.current == "${departureStop?.slug.current}"]{
@@ -81,19 +81,19 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
   }, [departureStop])
 
   useEffect(() => {
-    if (!line) {
+    if (!line && selectedLine){
       dispatch(addLine(selectedLine))
     }
-  })
+  }, [line, selectedLine, dispatch])
 
   const changeTravelDirection = (direction: number) => {
-    setTravelDirection(direction)
     dispatch(
       addDeparture({
         ...departureStop,
         direction,
       }),
     )
+    setTravelDirection(direction)
   }
 
   const styles = useSpring<{style?: StyleSheet}>({
@@ -109,6 +109,7 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
   return (
     <Card title="Welke tram neem je?" centeredTitle={true}>
       {!journeyStarted && <LinesSelector lines={lines} onPress={setSelectedLine}/>}
+      <DisclaimerText fontWeight={300}>Richting:</DisclaimerText>
       <AnswerContainer>
         <AnimatedView style={styles} />
         <Answer

@@ -36,6 +36,7 @@ const SightsCard = ({position, stopsSortedByDirection}: Props) => {
   const [stopsAhead, setStopsAhead] = useState<Stop[]>([])
   const [audioTour, setAudioTour] = useState<boolean>(false)
 
+  const stopIndex = useAppSelector(state => state.journey.stopIndex)
   const departureStop = useAppSelector(state => state.journey.departureStop)
   const line = useAppSelector(state => state.journey.line)
 
@@ -105,8 +106,8 @@ const SightsCard = ({position, stopsSortedByDirection}: Props) => {
   }, [line, position, stopsAhead])
 
   useEffect(() => {
-    departureStop && stopsSortedByDirection && setStopsAhead(determainStopsAhead(departureStop, stopsSortedByDirection))
-  }, [departureStop, stopsSortedByDirection])
+    departureStop && stopsSortedByDirection && setStopsAhead(determainStopsAhead(stopsSortedByDirection[stopIndex - 1], stopsSortedByDirection))
+  }, [departureStop, stopsSortedByDirection, stopIndex])
 
   if (sightsAhead?.length === 0) {return <Card title="Je rijdt niet meer langs bezienswaardigheden" centeredTitle={true}/>}
 

@@ -14,7 +14,7 @@ import sanityClient from '../client'
 import {calculateDistance, lookForStopIndex, sortLocationsByDistance} from '../methodes'
 import type {Stop} from '../../@types/types'
 import DirectionsCard from './Cards/DirectionsCard'
-import {useGeolocation} from '../app/hooks/useGeolocation'
+// import {useGeolocation} from '../app/hooks/useGeolocation'
 import StatisticsCard from './Cards/StatisticsCard'
 import DestinationStopSelector from './DestinationStopSelector'
 import {DisclaimerText} from './TextTypes'
@@ -54,7 +54,12 @@ const Homescreen = () => {
   const [destinationStopSelected, setDestinationStopSelected] = useState<boolean>(false)
   const [journeyStarted, setJourneyStarted] = useState<boolean>(false)
 
-  const [error, position] = useGeolocation()
+  // const [error, position] = useGeolocation()
+
+  // use pre-defined position at DEN HAAG HS for testing purpuses.
+  const position = {latitude: 52.0701530527062,longitude: 4.32175356255003}
+  const error = ''
+
   const dispatch = useAppDispatch()
 
   const departureStop = useAppSelector(state => state.journey.departureStop)
@@ -86,18 +91,19 @@ const Homescreen = () => {
     // Look for distance from current position to next stop
     if (stopsSortedByDirection && departureStop && journeyStarted) {
       const currentStopIndex = lookForStopIndex(stopsSortedByDirection, stopsSortedByDirection[stopIndex])
-      const distance = calculateDistance(
+      const distanceToNextStop = calculateDistance(
         stopsSortedByDirection[currentStopIndex + 1]?.coordinates.lat,
         stopsSortedByDirection[currentStopIndex + 1]?.coordinates.lon,
         position.latitude,
         position.longitude
       )
-      console.log(distance.toFixed(2) + 'km tot volgende halte:' + stopsSortedByDirection[currentStopIndex + 1]?.name)
-      if (distance <= 0.1) {
+      console.log(distanceToNextStop.toFixed(2) + 'km tot volgende halte:' + stopsSortedByDirection[currentStopIndex + 1]?.name)
+      if (distanceToNextStop <= 0.1) {
         dispatch(incrementStopIndex())
       }
     }
-  }, [data, departureStop, dispatch, journeyStarted, position, stopIndex, stopsSortedByDirection])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, departureStop, journeyStarted, position, stopIndex, stopsSortedByDirection])
 
   const setDepartureStop = (stop: Stop) => {
     setButtonText('Stap In')
@@ -121,7 +127,6 @@ const Homescreen = () => {
     dispatch(addSeenAttraction(2))
     dispatch(addSavedCo2(50))
     dispatch(resetJourney())
-
   }
 
   if (error) {
@@ -188,7 +193,7 @@ const Homescreen = () => {
                       {departureStop?.name}
                     </DisclaimerText>
                   </DisclaimerText>
-                  <DisclaimerText fontWeight={200}>
+                  <DisclaimerText fontWeight={300} underline>
                     Kies andere instaphalte
                   </DisclaimerText>
                 </Pressable>
@@ -202,6 +207,8 @@ const Homescreen = () => {
                 <DestinationStopSelector
                   stopsSortedByDirection={stopsSortedByDirection}
                   setDestionationStopSelected={setDestinationStopSelected}
+                  moveToNextStop={() => dispatch(incrementStopIndex())}
+                  stopJourney={() => setEndJourneyModalVisible(true)}
                 />
                 <SightsCard position={position} stopsSortedByDirection={stopsSortedByDirection}/>
               </>

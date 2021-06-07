@@ -30,20 +30,13 @@ type Props = {
   setDepartureStop: (stop: Stop) => void
 }
 
-const StopSelectionModal = ({
-  setModalVisible,
-  stopsByDistance,
-  setDepartureStop,
-}: Props) => {
+const StopSelectionModal = ({setModalVisible, stopsByDistance, setDepartureStop}: Props) => {
   const [closestStop, setClosestStop] = useState<Stop>(stopsByDistance[0])
   const [otherStops, setOtherStops] = useState<Stop[]>([])
 
   useEffect(() => {
     setClosestStop(stopsByDistance[0])
-
-    setOtherStops(
-      stopsByDistance.filter((stop, index) => stop.distance < 0.5 && index > 0),
-    )
+    setOtherStops(stopsByDistance.filter((stop, index) => stop.distance < 0.5 && index > 0))
   }, [stopsByDistance])
 
   const selectStop = (stop: Stop) => {

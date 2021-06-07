@@ -52,31 +52,22 @@ type Props = WithChildren<{
   subHeader: string,
 }>
 
-const Modal = ({
-  setModalVisible,
-  children,
-  header,
-  subHeader,
-}: Props) => {
-
-
-  return (
-    <>
-      <TouchableWithoutFeedback
-        onPress={() => {
-          setModalVisible(false)
-        }}>
-        <Backdrop />
-      </TouchableWithoutFeedback>
-      <MainContainer>
-        <Header>
-          <HeaderText>{header}</HeaderText>
-        </Header>
-        <SubHeader>{subHeader}</SubHeader>
-        {children}
-      </MainContainer>
-    </>
-  )
-}
+const Modal = ({setModalVisible, children, header, subHeader}: Props) => (
+  <>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        setModalVisible(false)
+      }}>
+      <Backdrop />
+    </TouchableWithoutFeedback>
+    <MainContainer>
+      <Header>
+        <HeaderText>{header}</HeaderText>
+      </Header>
+      <SubHeader>{subHeader}</SubHeader>
+      {children}
+    </MainContainer>
+  </>
+)
 
 export default Modal

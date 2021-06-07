@@ -81,9 +81,7 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
   }, [departureStop])
 
   useEffect(() => {
-    if (!line && selectedLine){
-      dispatch(addLine(selectedLine))
-    }
+    !line && selectedLine && dispatch(addLine(selectedLine))
   }, [line, selectedLine, dispatch])
 
   const changeTravelDirection = (direction: number) => {

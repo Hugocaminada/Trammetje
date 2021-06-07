@@ -53,10 +53,7 @@ type Props = {
   stopJourney: () => void
 }
 
-const EndJourneyModal = ({
-  setModalVisible,
-  stopJourney,
-}: Props) => {
+const EndJourneyModal = ({setModalVisible, stopJourney}: Props) => {
     const user = useAppSelector(state => state.user)
 
   return (

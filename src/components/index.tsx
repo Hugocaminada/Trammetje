@@ -84,9 +84,7 @@ const Homescreen = () => {
 
   // Effect updates when departure stop, departure line or current position changes
   useEffect(() => {
-    if (data && position && !journeyStarted) {
-      setStopsByDistance(sortLocationsByDistance(position, data))
-    }
+    data && position && !journeyStarted && setStopsByDistance(sortLocationsByDistance(position, data))
 
     // Look for distance from current position to next stop
     if (stopsSortedByDirection && departureStop && journeyStarted) {
@@ -98,9 +96,7 @@ const Homescreen = () => {
         position.longitude
       )
       console.log(distanceToNextStop.toFixed(2) + 'km tot volgende halte:' + stopsSortedByDirection[currentStopIndex + 1]?.name)
-      if (distanceToNextStop <= 0.1) {
-        dispatch(incrementStopIndex())
-      }
+      distanceToNextStop <= 0.1 && dispatch(incrementStopIndex())
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, departureStop, journeyStarted, position, stopIndex, stopsSortedByDirection])

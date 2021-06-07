@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 import {colors} from '../../constants'
 import Card from './Card'
 import {useAppDispatch, useAppSelector} from '../../app/hooks/redux'
-import {addDeparture} from '../../slices/journeySlice'
+import {addDeparture, addLine} from '../../slices/journeySlice'
 import {useSpring, animated} from '@react-spring/native'
 import LinesSelector from '../LinesSelector'
 import sanityClient from '../../client'
@@ -61,6 +61,8 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
 
   const [selectedLine, setSelectedLine] = useState<Line | undefined>()
   const [travelDirection, setTravelDirection] = useState<TravelDirection>(TravelDirection.Left)
+  const line = useAppSelector(state => state.journey.line)
+
 
   useEffect(() => {
     sanityClient.fetch(
@@ -77,6 +79,12 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
         setSelectedLine(data[0].lines[0])
       }).catch(console.error)
   }, [departureStop])
+
+  useEffect(() => {
+    if (!line) {
+      dispatch(addLine(selectedLine))
+    }
+  })
 
   const changeTravelDirection = (direction: number) => {
     setTravelDirection(direction)
@@ -98,10 +106,6 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
     borderBottomRightRadius: travelDirection ? 15 : 0,
   })
 
-  if (!selectedLine) {
-    return null
-  }
-
   return (
     <Card title="Welke tram neem je?" centeredTitle={true}>
       {!journeyStarted && <LinesSelector lines={lines} onPress={setSelectedLine}/>}
@@ -115,7 +119,7 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
             selected={travelDirection === TravelDirection.Left}
             adjustsFontSizeToFit
             numberOfLines={2}>
-            {selectedLine.directions[0]}
+            {line?.directions[0]}
           </AnswerText>
         </Answer>
         <Answer
@@ -126,7 +130,7 @@ const DirectionsCard = ({journeyStarted} : Props)  => {
             selected={travelDirection === TravelDirection.Right}
             adjustsFontSizeToFit
             numberOfLines={2}>
-            {selectedLine.directions[1]}
+            {line?.directions[1]}
           </AnswerText>
         </Answer>
       </AnswerContainer>

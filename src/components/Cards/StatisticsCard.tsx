@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/native'
+import EntypoIcon from 'react-native-vector-icons/Entypo'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import Card from './Card'
@@ -54,7 +55,7 @@ const StatisticsCard = () => {
         </RowContainer>
         <RowContainer>
           <Circle>
-            <FontAwesomeIcon name="university" color={colors.white} size={20} />
+            <EntypoIcon name="palette" color={colors.white} size={20} />
           </Circle>
           <MainText numberOfLines={2} adjustsFontSizeToFit>
             {user.seenAttractions}{' '}

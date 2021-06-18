@@ -1,5 +1,6 @@
 import React, {Dispatch, SetStateAction} from 'react'
 import styled from 'styled-components/native'
+import EntypoIcon from 'react-native-vector-icons/Entypo'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { useAppSelector } from '../../app/hooks/redux'
@@ -77,7 +78,7 @@ const EndJourneyModal = ({setModalVisible, stopJourney}: Props) => {
           </RowContainer>
           <RowContainer>
             <Circle>
-              <FontAwesomeIcon name="university" color={colors.white} size={20} />
+              <EntypoIcon name="palette" color={colors.white} size={20} />
             </Circle>
             <MainText>
               {user.seenAttractions}{' '}

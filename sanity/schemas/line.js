@@ -15,9 +15,10 @@ export default {
             of: [{type: 'string'}],
         },
         {
-            name: 'color',
-            title: 'Color',
-            type: 'string',
+            name: 'sights',
+            title: 'Sights',
+            type: 'array',
+            of: [{type: 'reference', to: {type: 'sight'}}],
         },
         {
             name: 'stops',
@@ -26,10 +27,9 @@ export default {
             of: [{type: 'reference', to: {type: 'stop'}}],
         },
         {
-            name: 'sights',
-            title: 'Sights',
-            type: 'array',
-            of: [{type: 'reference', to: {type: 'sight'}}],
+            name: 'color',
+            title: 'Color',
+            type: 'string',
         },
     ],
     preview: {

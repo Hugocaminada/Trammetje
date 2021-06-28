@@ -32,7 +32,7 @@ const PrivacyCard = () => {
         {
         folded ?
           <>
-            {privacyStatement && <DisclaimerText centered={false} fontWeight={400}>{privacyStatement[0].children[0].text.substring(0, 87)}...</DisclaimerText>}
+            {privacyStatement && <DisclaimerText numberOfLines={3} centered={false} fontWeight={400}>{privacyStatement[0].children[0].text}</DisclaimerText>}
             <DisclaimerText centered={false} fontWeight={200}>Tik voor meer</DisclaimerText>
           </>
         :

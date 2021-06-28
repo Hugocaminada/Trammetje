@@ -8,6 +8,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 import stop from './stop'
 import line from './line'
 import sight from './sight'
+import appInfo from './appInfo'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -21,6 +22,7 @@ export default createSchema({
     stop,
     line,
     sight,
+    appInfo,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
   ]),

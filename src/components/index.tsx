@@ -14,6 +14,7 @@ import sanityClient from '../client'
 import {calculateDistance, lookForStopIndex, sortLocationsByDistance} from '../methodes'
 import type {Stop} from '../../@types/types'
 import DirectionsCard from './Cards/DirectionsCard'
+import PrivacyCard from './Cards/PrivacyCard'
 // import {useGeolocation} from '../app/hooks/useGeolocation'
 import StatisticsCard from './Cards/StatisticsCard'
 import DestinationStopSelector from './DestinationStopSelector'
@@ -208,6 +209,7 @@ const Homescreen = () => {
               </>
             )}
             <StatisticsCard/>
+            <PrivacyCard/>
           </CardsContainer>
         </MainContainer>
       </ScrollView>
